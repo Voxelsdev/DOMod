@@ -15,6 +15,10 @@ app.use(require('webpack-hot-middleware')(compiler));
 
 app.use('/public', express.static('public'));
 
+const parser = require('./src/routes/parser.js');
+
+app.use(parser);
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
