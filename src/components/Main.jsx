@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Editor from './Editor';
 import DOMviewer from './DOMviewer';
 
-require('./main.css');
+require('./css/main.css');
 
 class Main extends Component {
   render() {
