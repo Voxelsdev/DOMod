@@ -4,7 +4,10 @@ class Header extends Component {
   render() {
 
     return (
-      <div id="header"></div>
+      <header>
+        <h2>DOMod</h2>
+        <button>Login</button>
+      </header>
     )
   }
 }

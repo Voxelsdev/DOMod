@@ -22,13 +22,26 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx', '.css'],
+    modulesDirectories: [
+      'node_modules'
+    ] 
   },
   module: {
     loaders: [{
       test: /\.js|\.jsx$/,
       loaders: ['babel'],
       include: path.join(__dirname, 'src')
+    }, {
+      test: /\.css$/,
+      loader: 'style-loader'
+    }, {
+      test: /\.css$/,
+      loader: 'css-loader',
+      query: {
+        modules: true,
+        localIdentName: '[name]__[local]___[hash:base64:5]'
+      }
     }]
   }
 };
