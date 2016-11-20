@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router(); // eslint-disable-line new-cap
-const parser = require('html-to-json');
+const parser = require('himalaya');
 
 console.log('here');
 
