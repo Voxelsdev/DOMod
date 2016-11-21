@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 
+import DOMtree from './DOMtree';
+
+import Styles from './css/domviewer.css';
+
 class DOMviewer extends Component {
   render() {
+
     return (
-      <div>I am the DOMviewer</div>
+      <svg id={Styles.domviewer}>
+        <DOMtree />
+      </svg>
     )
   }
 }

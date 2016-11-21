@@ -25,7 +25,7 @@ module.exports = {
     extensions: ['', '.js', '.jsx', '.css'],
     modulesDirectories: [
       'node_modules'
-    ] 
+    ]
   },
   module: {
     loaders: [{
@@ -33,7 +33,7 @@ module.exports = {
       loaders: ['babel'],
       include: path.join(__dirname, 'src')
     }, {
-      test: /\.css$/,
+      test: /\.css/,
       loader: 'style-loader'
     }, {
       test: /\.css$/,
