@@ -1,26 +1,17 @@
 import React, { Component } from 'react';
-
-// const Codemirror = require('react-codemirror');
-//
-// require('../codemirror/mode/javascript/javascript');
-// require('../codemirror/mode/xml/xml');
-// require('../codemirror/lib/codemirror.css');
-
+import classnames from 'classnames';
 import styles from './css/editor';
 
 class Editor extends Component {
   render() {
-    return <div className="editor-container">
+    return <div className={styles.editorContainer}>
       <div className="row">
-        <textarea
-          className="u-full-width"
-          id={styles.text}>
+        <textarea className={classnames(styles.text, 'u-full-width')}>
         </textarea>
       </div>
       <div className="row">
         <input
-          className="u-full-width"
-          id={styles.parseHtml}
+          className={classnames('u-full-width', styles.parseHtml)}
           type="button"
           value="Parse HTML!"
         />
@@ -30,25 +21,3 @@ class Editor extends Component {
 }
 
 export default Editor;
-
-// constructor() {
-//   super();
-//   this.code = '// Code'
-// }
-//
-// updateCode(newCode) {
-//   this.code = newCode;
-// }
-//
-// render() {
-//   const options = {
-//     lineNumbers: true
-//   };
-//
-//   return (
-//     <Codemirror value={this.code}
-//                 onChange={this.updateCode}
-//                 options={options}
-//                 interact={this.interact} />
-//   )
-// }

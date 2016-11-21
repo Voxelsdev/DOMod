@@ -1,11 +1,14 @@
 body {
   color: red;
+  height: 100%;
 }
 
 html {
   background-color: #f4f4f4;
+  height: 100vh;
 }
 
 .maincontainer {
   margin-top: 7px;
+  height: 100%;
 }
