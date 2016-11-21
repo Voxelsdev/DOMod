@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import Editor from './Editor';
 import DOMviewer from './DOMviewer';
+import styles from './css/main';
 
 class Main extends Component {
   render() {
