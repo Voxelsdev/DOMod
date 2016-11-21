@@ -6,9 +6,26 @@ import React, { Component } from 'react';
 // require('../codemirror/mode/xml/xml');
 // require('../codemirror/lib/codemirror.css');
 
+import styles from './css/editor';
+
 class Editor extends Component {
   render() {
-    return <div>I am the editor</div>
+    return <div className="editor-container">
+      <div className="row">
+        <textarea
+          className="u-full-width"
+          id={styles.text}>
+        </textarea>
+      </div>
+      <div className="row">
+        <input
+          className="u-full-width"
+          id={styles.parseHtml}
+          type="button"
+          value="Parse HTML!"
+        />
+      </div>
+    </div>
   }
 }
 

@@ -1,0 +1,21 @@
+.navbar {
+  height: 50px;
+  background-color: #dcd0c0;
+  border-radius: 4px;
+}
+
+.login {
+  margin-top: 5px;
+  margin-bottom: 0;
+  height: 100%;
+}
+
+#title {
+  text-align: center;
+  line-height: 50px;
+  font-size: 25px;
+  font-weight: bold;
+  box-sizing: border-box;
+  margin: 0;
+  color: black;
+}
