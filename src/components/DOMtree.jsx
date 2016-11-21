@@ -7,20 +7,17 @@ import Node from './Node.jsx';
 import Link from './Link.jsx';
 
 class DOMtree extends Component {
-  constructor(props) {
-    super()
 
-    this.tree = d3.layout.tree().size([500, 500]);
-  }
-
-  makeNode(node) {
+  makeNode(node, key) {
     return <Node name={node.name}
                  x={node.x}
-                 y={node.y} />
+                 y={node.y}
+                 key={key} />
   }
 
-  makeLink(link) {
-    return <Link track={d3.svg.diagonal().projection((d) => [d.x, d.y])(link)} />;
+  makeLink(link, key) {
+    return <Link track={d3.svg.diagonal().projection((d) => [d.x, d.y])(link)}
+                 key={key}/>;
   }
 
   render() {
@@ -50,16 +47,17 @@ class DOMtree extends Component {
         ]
       }
     ];
-    const nodes = this.tree.nodes(treeData[0]);
-    const links = this.tree.links(nodes);
+    const tree = d3.layout.tree().size([500, 500]);
+    const nodes = tree.nodes(treeData[0]);
+    const links = tree.links(nodes);
 
     nodes.forEach((d) => {
       d.y = d.depth * 100; });
 
     return (
       <g className="domtree">
-        {links.map((link) => this.makeLink(link))};
-        {nodes.map((node) => this.makeNode(node))}
+        {links.map((link, key) => this.makeLink(link))}
+        {nodes.map((node, key) => this.makeNode(node))}
       </g>
     )
   }

@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 import d3 from 'd3';
 
 class Node extends Component {
-  render() {
+  makeBorder() {
+    console.log(this.refs.node);
+  }
 
+  render() {
     return (
-      <text x={this.props.x}
-            y={this.props.y}>
-        {this.props.name}
-      </text>
+      <g>
+        <text x={this.props.x}
+              y={this.props.y}
+              ref="node">
+          {this.props.name}
+        </text>
+        <rect>{this.makeBorder()}</rect>
+      </g>
     )
   }
 }
