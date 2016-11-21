@@ -7,11 +7,11 @@ import styles from './css/main';
 class Main extends Component {
   render() {
     return (
-      <div className={classnames('row', styles.maincontainer)}>
+      <div className="row">
         <div className="eight columns">
           <DOMviewer />
         </div>
-        <div className='four columns'>
+        <div className={classnames('four', 'columns', styles.mainEditContainer)}>
           <Editor />
         </div>
       </div>
