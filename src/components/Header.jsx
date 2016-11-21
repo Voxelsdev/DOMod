@@ -13,7 +13,7 @@ class Header extends Component {
           <div className="three columns">
             <p id={styles.title}>DOMod</p>
           </div>
-
+ 
           <div className="two columns offset-by-five signup">
           <button className={classnames('u-full-width', styles.login)}>
             Signup
