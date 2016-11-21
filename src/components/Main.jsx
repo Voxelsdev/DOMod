@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-
+import classnames from 'classnames';
 import Editor from './Editor';
 import DOMviewer from './DOMviewer';
 
 class Main extends Component {
   render() {
     return (
-      <div className="row">
+      <div className={classnames('row', styles.maincontainer)}>
         <div className="eight columns">
           <DOMviewer />
         </div>
