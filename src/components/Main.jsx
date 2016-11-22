@@ -8,11 +8,13 @@ class Main extends Component {
   constructor() {
     super();
     this.state = {
-      html: 'Enter your HTML here!'
+      html: 'Enter your HTML here!',
+      tree: d3.layout.tree().size([500, 500])
     }
+    this.updateBBox = this.updateBBox.bind(this)
   }
 
-  handleChange(html) {
+  changeHTML(html) {
     this.setState({ html });
   }
 
@@ -20,16 +22,23 @@ class Main extends Component {
     console.log(this.state.html);
   }
 
+  updateBBox(bbox, index) {
+    const tempArr = this.state.bbox.slice();
+    tempArr[index] = bbox.x;
+    this.setState({ bbox: tempArr });
+  }
+
   render() {
     return (
       <div className="row">
         <div className="eight columns">
-          <DOMviewer />
+          <DOMviewer tree={this.state.tree}
+                     html={this.state.html}/>
         </div>
         <div className={classnames('four', 'columns', styles.mainEditContainer)}>
           <Editor
-            hmtl={this.state}
-            handleChange={this.handleChange}/>
+            html={this.html}
+            handleChange={this.changeHTML}/>
         </div>
       </div>
     )

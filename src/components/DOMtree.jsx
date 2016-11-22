@@ -7,12 +7,12 @@ import Node from './Node.jsx';
 import Link from './Link.jsx';
 
 class DOMtree extends Component {
-
   makeNode(node, key) {
+
     return <Node name={node.name}
                  x={node.x}
                  y={node.y}
-                 key={key} />
+                 key={key}/>
   }
 
   makeLink(link, key) {
@@ -47,17 +47,18 @@ class DOMtree extends Component {
         ]
       }
     ];
-    const tree = d3.layout.tree().size([500, 500]);
-    const nodes = tree.nodes(treeData[0]);
-    const links = tree.links(nodes);
+    const nodes = this.props.tree.nodes(treeData[0]);
+    const links = this.props.tree.links(nodes);
 
     nodes.forEach((d) => {
-      d.y = d.depth * 100; });
+      d.y = d.depth * 100 + 25; });
+
+    const index = 0;
 
     return (
       <g className="domtree">
-        {links.map((link, key) => this.makeLink(link))}
-        {nodes.map((node, key) => this.makeNode(node))}
+        {links.map((link, key) => this.makeLink(link, key))}
+        {nodes.map((node, key) => this.makeNode(node, key))}
       </g>
     )
   }

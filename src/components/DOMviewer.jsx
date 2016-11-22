@@ -9,7 +9,9 @@ class DOMviewer extends Component {
 
     return (
       <svg id={Styles.domviewer}>
-        <DOMtree />
+        <DOMtree tree={this.props.tree}
+                 bbox={this.props.bbox}
+                 updateBBox={this.props.updateBBox}/>
       </svg>
     )
   }

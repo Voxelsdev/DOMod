@@ -1,3 +1,4 @@
-.nodetext {
-  border: solid;
+.borderbox {
+  fill: white;
+  stroke: black;
 }
