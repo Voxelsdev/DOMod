@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
+import parser from 'himalaya'
 import styles from './css/editor';
 
 class Editor extends Component {
@@ -11,23 +12,23 @@ class Editor extends Component {
 
   submit() {
     const value = ReactDOM.findDOMNode(this.refs.htmlinput).value
-    this.props.handleChange(value);
+    this.props.changeHTML(parser.parse(value));
   }
 
   render() {
     return <div className={styles.editorContainer}>
       <div className="row">
         <textarea
-          ref="htmlinput"
           className={classnames(styles.text, 'u-full-width')}
+          ref="htmlinput"
         >
         </textarea>
       </div>
       <div className="row">
         <input
           className={classnames('u-full-width', styles.parseHtml)}
-          type="submit"
           onClick={this.submit}
+          type="submit"
           value="Parse HTML!"
         />
       </div>
@@ -36,3 +37,7 @@ class Editor extends Component {
 }
 
 export default Editor;
+
+<div class="dude">
+  <div id="man">
+    <p>man</p></div><p>dude</p></div>
