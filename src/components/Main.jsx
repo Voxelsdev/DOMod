@@ -11,14 +11,11 @@ class Main extends Component {
       html: 'Enter your HTML here!',
       tree: d3.layout.tree().size([500, 500])
     }
+    this.changeHTML = this.changeHTML.bind(this);
   }
 
   changeHTML(html) {
     this.setState({ html });
-  }
-
-  parseHtml() {
-    console.log(this.state.html);
   }
 
   render() {
@@ -31,7 +28,7 @@ class Main extends Component {
         <div className={classnames('four', 'columns', styles.mainEditContainer)}>
           <Editor
             html={this.html}
-            handleChange={this.changeHTML}/>
+            changeHTML={this.changeHTML}/>
         </div>
       </div>
     )

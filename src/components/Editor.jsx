@@ -18,6 +18,7 @@ class Editor extends PureComponent {
 
   parseHtml() {
     const value = ReactDOM.findDOMNode(this.refs.htmlinput).value;
+    console.log(ReactDOM.findDOMNode(this.refs.htmlinput));
     this.props.changeHTML(parser.parse(value));
   }
 
