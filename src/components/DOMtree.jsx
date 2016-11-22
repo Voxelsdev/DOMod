@@ -9,7 +9,7 @@ import Link from './Link.jsx';
 class DOMtree extends Component {
   makeNode(node, key) {
 
-    return <Node name={node.name}
+    return <Node tagName={node.tagName}
                  x={node.x}
                  y={node.y}
                  key={key}/>
@@ -21,44 +21,22 @@ class DOMtree extends Component {
   }
 
   render() {
-    const treeData = [
-      {
-        "name": "Top Level",
-        "parent": "null",
-        "children": [
-          {
-            "name": "Level 2: A",
-            "parent": "Top Level",
-            "children": [
-              {
-                "name": "Son of A",
-                "parent": "Level 2: A"
-              },
-              {
-                "name": "Daughter of A",
-                "parent": "Level 2: A"
-              }
-            ]
-          },
-          {
-            "name": "Level 2: B",
-            "parent": "Top Level"
-          }
-        ]
-      }
-    ];
-    const nodes = this.props.tree.nodes(treeData[0]);
-    const links = this.props.tree.links(nodes);
+    console.log(this.props);
+    if (this.props.jsonFromHtml) {
+      const nodes = this.props.tree.nodes(this.props.jsonFromHtml[0]);
+      const links = this.props.tree.links(nodes);
 
-    nodes.forEach((d) => {
-      d.y = d.depth * 100 + 25; });
+      nodes.forEach((d) => {
+        d.y = d.depth * 100 + 25; });
 
-    return (
-      <g className="domtree">
-        {links.map((link, key) => this.makeLink(link, key))}
-        {nodes.map((node, key) => this.makeNode(node, key))}
-      </g>
-    )
+      return (
+        <g className="domtree">
+          {links.map((link, key) => this.makeLink(link, key))}
+          {nodes.map((node, key) => this.makeNode(node, key))}
+        </g>
+      )
+    }
+    return null;
   }
 }
 

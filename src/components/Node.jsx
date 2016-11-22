@@ -34,7 +34,7 @@ class Node extends Component {
         <text textAnchor="middle"
               x={this.props.x}
               y={this.props.y}>
-          {this.props.name}
+          {this.props.tagName}
         </text>
       </g>
     )
