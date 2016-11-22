@@ -1,33 +1,41 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
-import parser from 'himalaya'
+import parser from 'himalaya';
 import styles from './css/editor';
 
-class Editor extends Component {
+import AceEditor from 'react-ace';
+
+import brace from 'brace';
+import 'brace/mode/html';
+import 'brace/theme/tomorrow_night_eighties';
+
+class Editor extends PureComponent {
   constructor(props) {
     super(props);
-    this.submit = this.submit.bind(this);
+    this.parseHtml = this.parseHtml.bind(this);
   }
 
-  submit() {
-    const value = ReactDOM.findDOMNode(this.refs.htmlinput).value
+  parseHtml() {
+    const value = ReactDOM.findDOMNode(this.refs.htmlinput).value;
     this.props.changeHTML(parser.parse(value));
   }
 
   render() {
     return <div className={styles.editorContainer}>
       <div className="row">
-        <textarea
-          className={classnames(styles.text, 'u-full-width')}
+        <AceEditor
           ref="htmlinput"
-        >
-        </textarea>
+          wrapEnabeled="false"
+          mode="html"
+          theme="tomorrow_night_eighties"
+          name="ace-editor"
+        />
       </div>
       <div className="row">
         <input
           className={classnames('u-full-width', styles.parseHtml)}
-          onClick={this.submit}
+          onClick={this.parseHtml}
           type="submit"
           value="Parse HTML!"
         />
