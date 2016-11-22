@@ -31,6 +31,7 @@ class Editor extends PureComponent {
           mode="html"
           theme="tomorrow_night_eighties"
           name="ace-editor"
+          width="100%"
         />
       </div>
       <div className="row">
