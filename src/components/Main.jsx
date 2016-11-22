@@ -11,7 +11,6 @@ class Main extends Component {
       html: 'Enter your HTML here!',
       tree: d3.layout.tree().size([500, 500])
     }
-    this.updateBBox = this.updateBBox.bind(this)
   }
 
   changeHTML(html) {
@@ -20,12 +19,6 @@ class Main extends Component {
 
   parseHtml() {
     console.log(this.state.html);
-  }
-
-  updateBBox(bbox, index) {
-    const tempArr = this.state.bbox.slice();
-    tempArr[index] = bbox.x;
-    this.setState({ bbox: tempArr });
   }
 
   render() {

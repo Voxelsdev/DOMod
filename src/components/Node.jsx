@@ -33,8 +33,7 @@ class Node extends Component {
           width={bbox ? bbox.width + 10:0}></rect>
         <text textAnchor="middle"
               x={this.props.x}
-              y={this.props.y}
-              index={this.props.index}>
+              y={this.props.y}>
           {this.props.name}
         </text>
       </g>

@@ -53,8 +53,6 @@ class DOMtree extends Component {
     nodes.forEach((d) => {
       d.y = d.depth * 100 + 25; });
 
-    const index = 0;
-
     return (
       <g className="domtree">
         {links.map((link, key) => this.makeLink(link, key))}
