@@ -11,15 +11,18 @@ import 'brace/mode/html';
 import 'brace/theme/tomorrow_night_eighties';
 
 class Editor extends PureComponent {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.parseHtml = this.parseHtml.bind(this);
+    this.handleTextInput = this.handleTextInput.bind(this);
   }
 
   parseHtml() {
-    const value = ReactDOM.findDOMNode(this.refs.htmlinput).value;
-    console.log(ReactDOM.findDOMNode(this.refs.htmlinput));
-    this.props.changeHTML(parser.parse(value));
+    this.props.setJsonFromHtml(parser.parse(this.props.html));
+  }
+
+  handleTextInput(text) {
+    this.props.changeHTML(text);
   }
 
   render() {
@@ -32,12 +35,14 @@ class Editor extends PureComponent {
           theme="tomorrow_night_eighties"
           name="ace-editor"
           width="100%"
+          value={this.props.html}
+          onChange={this.handleTextInput}
         />
       </div>
       <div className="row">
         <input
           className={classnames('u-full-width', styles.parseHtml)}
-          onClick={this.parseHtml}
+          onClick={this.parseHtml.bind(this)}
           type="submit"
           value="Parse HTML!"
         />
@@ -47,7 +52,3 @@ class Editor extends PureComponent {
 }
 
 export default Editor;
-
-<div class="dude">
-  <div id="man">
-    <p>man</p></div><p>dude</p></div>

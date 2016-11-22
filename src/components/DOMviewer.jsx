@@ -6,12 +6,11 @@ import Styles from './css/domviewer.css';
 
 class DOMviewer extends Component {
   render() {
-    console.log(this.props.html)
 
     return (
       <svg id={Styles.domviewer}>
         <DOMtree tree={this.props.tree}
-                 />
+                 jsonFromHtml={this.props.jsonFromHtml}/>
       </svg>
     )
   }
