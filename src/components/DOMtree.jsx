@@ -21,7 +21,6 @@ class DOMtree extends Component {
   }
 
   render() {
-    console.log(this.props);
     if (this.props.jsonFromHtml) {
       const nodes = this.props.tree.nodes(this.props.jsonFromHtml[0]);
       const links = this.props.tree.links(nodes);
@@ -31,8 +30,17 @@ class DOMtree extends Component {
 
       return (
         <g className="domtree">
-          {links.map((link, key) => this.makeLink(link, key))}
-          {nodes.map((node, key) => this.makeNode(node, key))}
+          {links.map((link, key) => {
+            if (link.target.tagName) {
+              return this.makeLink(link, key);
+            }
+          })}
+          {nodes.map((node, key) => {
+            if (node.tagName) {
+              return this.makeNode(node, key);
+            }
+          })
+        }
         </g>
       )
     }

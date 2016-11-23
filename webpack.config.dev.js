@@ -22,7 +22,7 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx', '.css'],
+    extensions: ['', '.js', '.jsx', '.json', '.css'],
     modulesDirectories: [
       'node_modules'
     ]
@@ -42,6 +42,14 @@ module.exports = {
         modules: true,
         localIdentName: '[name]__[local]___[hash:base64:5]'
       }
+    }, {
+      test: /\.json$/,
+      loader: "json-loader"
     }]
+  },
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
   }
 };
