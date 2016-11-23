@@ -1,4 +1,8 @@
-.borderbox {
-  fill: white;
-  stroke: black;
+.textrect {
+  fill: #f4f4f4;
+  stroke: none;
+}
+
+.tagname {
+  font-weight: bold;
 }

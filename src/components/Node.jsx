@@ -6,34 +6,20 @@ import d3 from 'd3';
 import Styles from './css/node';
 
 class Node extends Component {
-  constructor() {
-    super();
-    this.state = {
-      bbox: null
-    }
-  }
-
-  makeBorderBox(bbox) {
-    this.setState({ bbox });
-  }
-
-  componentDidMount() {
-    this.makeBorderBox(ReactDOM.findDOMNode(this).getBBox());
-  }
-
   render() {
-    const bbox = this.state.bbox ? this.state.bbox:null;
 
     return (
       <g>
-        <rect className={Styles.borderbox}
-          x={bbox ? bbox.x - 5:0}
-          y={bbox ? bbox.y - 5:0}
-          height={bbox ? bbox.height + 10:0}
-          width={bbox ? bbox.width + 10:0}></rect>
+        <rect className={Styles.textrect}
+              x={this.props.x - 10}
+              y={this.props.y - 18}
+              width='20px'
+              height='24px'>
+        </rect>
         <text textAnchor="middle"
               x={this.props.x}
-              y={this.props.y}>
+              y={this.props.y}
+              className={Styles.tagname}>
           {this.props.tagName}
         </text>
       </g>
