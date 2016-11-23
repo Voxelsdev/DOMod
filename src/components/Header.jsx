@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import classnames from 'classnames';
 import styles from './css/header';
 
@@ -11,19 +12,28 @@ class Header extends Component {
           id={styles.navbar}
         >
           <div className="three columns">
-            <p id={styles.title}>DOMod</p>
+            <p id={styles.title}><Link  to="/"
+                                        style={{
+                                          color: '#373737',
+                                          textDecoration: 'none',
+                                        }}>
+                                        DOMod</Link></p>
           </div>
- 
+
           <div className="two columns offset-by-five signup">
-          <button className={classnames('u-full-width', styles.login)}>
-            Signup
-          </button>
+            <Link to="/signup">
+              <button className={classnames('u-full-width', styles.login)}>
+                Signup
+              </button>
+            </Link>
           </div>
 
           <div className="two columns login">
-            <button className={classnames('u-full-width', styles.login)}>
-              Login
-            </button>
+            <Link to="/login">
+              <button className={classnames('u-full-width', styles.login)}>
+                Login
+              </button>
+            </Link>
           </div>
         </div>
       </header>
