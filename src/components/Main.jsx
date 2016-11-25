@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import { Match, Miss } from 'react-router';
 
 import classnames from 'classnames';
@@ -7,6 +8,11 @@ import Editor from './Editor';
 import JSPlayer from './JSPlayer';
 
 import styles from './css/mainapp';
+
+import { Match } from 'react-router';
+import MainApp from './MainApp';
+// import Signup from './signup';
+import Login from './Login';
 
 class Main extends Component {
   constructor() {
@@ -57,6 +63,10 @@ class Main extends Component {
                     js={this.state.js} />
           }/>
         </div>
+      <div>
+        <Match pattern="/" exactly component={MainApp} />
+        <Match pattern="/login" exactly component={Login} />
+        {/* <Match pattern="/signup" component={Signup} /> */}
       </div>
     )
   }

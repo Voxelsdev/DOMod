@@ -16,6 +16,7 @@ class Header extends Component {
                                         style={{
                                           color: '#373737',
                                           textDecoration: 'none',
+                                          textTransform: 'uppercase',
                                         }}>
                                         DOMod</Link></p>
           </div>
