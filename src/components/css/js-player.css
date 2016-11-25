@@ -1,0 +1,12 @@
+.lineofcode {
+  margin: 0;
+  padding: 0;
+}
+
+#htmlviewer {
+  border: solid;
+}
+
+#jsviewer {
+  border: solid;
+}

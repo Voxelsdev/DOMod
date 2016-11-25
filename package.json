@@ -65,5 +65,8 @@
     "react-dom": "^15.3",
     "react-router": "^4.0.0-alpha.6",
     "style-loader": "^0.13.1"
+  },
+  "engines" : {
+    "node": "v6.5.0"
   }
 }
