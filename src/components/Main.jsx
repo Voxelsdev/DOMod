@@ -6,8 +6,6 @@ import DOMviewer from './DOMviewer';
 import Editor from './Editor';
 import JSPlayer from './JSPlayer';
 
-import styles from './css/main';
-
 // import Signup from './signup';
 import Login from './Login';
 
@@ -18,11 +16,13 @@ class Main extends Component {
       html: 'Add html here',
       jsonFromHtml: null,
       js: 'Add javascript here',
-      tree: d3.layout.tree().size([500, 500])
+      tree: d3.layout.tree().size([500, 500]),
+      selectors: null
     }
     this.changeHTML = this.changeHTML.bind(this);
     this.changeJS = this.changeJS.bind(this);
     this.setJsonFromHtml = this.setJsonFromHtml.bind(this);
+    this.setSelectors = this.setSelectors.bind(this);
   }
 
   changeHTML(html) {
@@ -33,8 +33,12 @@ class Main extends Component {
     this.setState({ js });
   }
 
-  setJsonFromHtml (jsonFromHtml) {
+  setJsonFromHtml(jsonFromHtml) {
     this.setState({ jsonFromHtml });
+  }
+
+  setSelectors() {
+    this.setState({ selectors: {tagName:'div'} });
   }
 
   render() {
@@ -43,9 +47,10 @@ class Main extends Component {
       <div className="row">
         <div className="eight columns">
           <DOMviewer tree={this.state.tree}
-                     jsonFromHtml={this.state.jsonFromHtml} />
+                     jsonFromHtml={this.state.jsonFromHtml}
+                     selectors={this.state.selectors} />
         </div>
-        <div className={classnames('four', 'columns', styles.mainEditContainer)}>
+        <div className="four columns">
           <Match pattern="/" exactly render={
             () => <Editor
                     html={this.state.html}
@@ -57,7 +62,8 @@ class Main extends Component {
           <Match pattern="/js-player" exactly render={
             () => <JSPlayer
                     html={this.state.html}
-                    js={this.state.js} />
+                    js={this.state.js}
+                    setSelectors={this.setSelectors} />
           }/>
         </div>
       </div>

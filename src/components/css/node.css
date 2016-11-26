@@ -3,6 +3,10 @@
   stroke: none;
 }
 
-.tagname {
+.tag, .highlightedTag {
   font-weight: bold;
+}
+
+.highlightedTag {
+  fill: orange;
 }

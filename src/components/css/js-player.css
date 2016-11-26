@@ -1,6 +1,9 @@
-.lineofcode {
+.lineofcode, .highlightedlineofcode {
   margin: 0;
-  padding: 0;
+}
+
+.highlightedlineofcode {
+  background-color: orange;
 }
 
 #htmlviewer {

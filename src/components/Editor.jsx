@@ -27,10 +27,8 @@ class Editor extends PureComponent {
     return <div className={styles.editorContainer}>
           <AceEditor
             ref="htmlinput"
-            wrapEnabeled="false"
             mode="html"
             theme="tomorrow_night_eighties"
-            name="ace-editor"
             width="100%"
             value={this.props.html}
             onChange={this.props.changeHTML}
@@ -43,10 +41,8 @@ class Editor extends PureComponent {
         />
         <AceEditor
           ref="jsinput"
-          wrapEnabeled="false"
           mode="javascript"
           theme="tomorrow_night_eighties"
-          name="ace-editor"
           width="100%"
           value={this.props.js}
           onChange={this.props.changeJS}

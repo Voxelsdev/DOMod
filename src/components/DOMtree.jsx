@@ -10,9 +10,12 @@ class DOMtree extends Component {
   makeNode(node, key) {
 
     return <Node tagName={node.tagName}
+                 tagClass={node.attributes.className}
+                 tagId={node.attributes.id}
                  x={node.x}
                  y={node.y}
-                 key={key}/>
+                 key={key}
+                 selectors={this.props.selectors}/>
   }
 
   makeLink(link, key) {

@@ -7,6 +7,13 @@ import Styles from './css/node';
 
 class Node extends Component {
   render() {
+    let matchesSelector = false;
+
+    for (const selector in this.props.selectors) {
+      if (this.props[selector] === this.props.selectors[selector]) {
+        matchesSelector = true;
+      }
+    }
 
     return (
       <g>
@@ -19,7 +26,7 @@ class Node extends Component {
         <text textAnchor="middle"
               x={this.props.x}
               y={this.props.y}
-              className={Styles.tagname}>
+              className={ matchesSelector ? Styles.highlightedTag:Styles.tag }>
           {this.props.tagName}
         </text>
       </g>

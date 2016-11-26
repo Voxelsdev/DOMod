@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router';
 
 import Header from './Header';
 import Main from './Main';
+import Styles from './css/app';
 
 class App extends Component {
   render() {

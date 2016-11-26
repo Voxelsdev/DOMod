@@ -10,7 +10,8 @@ class DOMviewer extends Component {
     return (
       <svg id={Styles.domviewer}>
         <DOMtree tree={this.props.tree}
-                 jsonFromHtml={this.props.jsonFromHtml}/>
+                 jsonFromHtml={this.props.jsonFromHtml}
+                 selectors={this.props.selectors} />
       </svg>
     )
   }
