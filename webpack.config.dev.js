@@ -22,7 +22,7 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx', '.json', '.css'],
+    extensions: ['', '.js', '.jsx', '.json', '.css', '.png'],
     modulesDirectories: [
       'node_modules'
     ]
@@ -45,6 +45,12 @@ module.exports = {
     }, {
       test: /\.json$/,
       loader: "json-loader"
+    }, {
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      loaders: [
+        'file?hash=sha512&digest=hex&name=[hash].[ext]',
+        'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+      ]
     }]
   },
   node: {
