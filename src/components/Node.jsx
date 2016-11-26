@@ -8,6 +8,7 @@ import Styles from './css/node';
 class Node extends Component {
   render() {
     let matchesSelector = false;
+    console.log(this.props.currentPage);
 
     for (const selector in this.props.selectors) {
       if (this.props[selector] === this.props.selectors[selector]) {
@@ -26,7 +27,8 @@ class Node extends Component {
         <text textAnchor="middle"
               x={this.props.x}
               y={this.props.y}
-              className={ matchesSelector ? Styles.highlightedTag:Styles.tag }>
+              className={ matchesSelector && this.props.currentPage ===
+                          '/js-player'? Styles.highlightedTag:Styles.tag }>
           {this.props.tagName}
         </text>
       </g>

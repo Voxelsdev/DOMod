@@ -8,6 +8,8 @@ import Link from './Link.jsx';
 
 class DOMtree extends Component {
   makeNode(node, key) {
+    const currentUrl = window.location.href.toString();
+    const currentPage = currentUrl.substring(currentUrl.lastIndexOf('/'));
 
     return <Node tagName={node.tagName}
                  tagClass={node.attributes.className}
@@ -15,7 +17,8 @@ class DOMtree extends Component {
                  x={node.x}
                  y={node.y}
                  key={key}
-                 selectors={this.props.selectors}/>
+                 selectors={this.props.selectors}
+                 currentPage={currentPage}/>
   }
 
   makeLink(link, key) {

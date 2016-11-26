@@ -13,10 +13,10 @@ class JSController extends Component {
                src={require('file!./icons/last.png')} />
         </button>
         <p id={Styles.controllerTitle}>javascript controller</p>
-        <button className={Styles.controllerButton}>
+        <button className={Styles.controllerButton}
+                onClick={this.props.setSelectors}>
           <img className={Styles.controlButtonIcon}
-               src={require('file!./icons/next.png')}
-               onClick={this.props.setSelectors}/>
+               src={require('file!./icons/next.png')}/>
         </button>
       </div>
     );
