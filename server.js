@@ -12,6 +12,7 @@ const config = require('./webpack.config.dev');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 require('dotenv').load();
+require('dotenv').config({path: __dirname + '/.env'});
 const port = process.env.PORT || 3000;
 const compiler = webpack(config);
 
@@ -33,7 +34,7 @@ passport.use(new GitHubStrategy({
       if (exists) {
         // user exists..
       } else {
-        
+
       }
     })
   User.findOrCreate({ githubId: profile.id }, (err, user) => done(err, user));
