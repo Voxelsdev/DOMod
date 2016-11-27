@@ -6,8 +6,8 @@ module.exports = {
     connection: 'postgres://localhost/domod'
   },
 
-  development: {
+  production: {
     client: 'pg',
-    connection: 'postgres://localhost/domod'
+    connection: process.env.DATABASE_URL
   }
 };
