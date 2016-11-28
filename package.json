@@ -3,13 +3,13 @@
   "version": "0.0.0",
   "description": "A DOM viewer.",
   "scripts": {
-    "knex": "knex",
+    "build": "npm run clean && npm run build:webpack",
+    "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "clean": "rimraf dist",
     "heroku-postbuild": "webpack -p --config ./webpack.config.prod.js --progress",
-    "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
-    "build": "npm run clean && npm run build:webpack",
+    "knex": "knex",
+    "lint": "eslint src",
     "start": "node server.js",
-    "lint": "eslint src"
   },
   "repository": {
     "type": "git",
