@@ -22,7 +22,9 @@ const getcurrCodeBitProps = function(node, parent, currCodeBit, parentChain,
                           node.property.name:null;
   currCodeBit.getter = getters.hasOwnProperty(node.property.name) ?
                           node.property.name:null;
-  currCodeBit.argument = parent.arguments[0].value;
+  if (parent.arguments) {
+    currCodeBit.argument = parent.arguments[0].value;
+  }
 }
 
 const getNewJSArr = function(js) {
@@ -37,8 +39,10 @@ const getNewJSArr = function(js) {
     children: true,
     nextElementSibling: true,
     nextSibling: true,
+    previousSibling: true,
     firstChild: true,
-    lastChild: true
+    lastChild: true,
+    parentElement: true
   }
   const modifiers = {
     appendChild: true,
@@ -55,6 +59,7 @@ const getNewJSArr = function(js) {
       if (node.type === "MemberExpression" &&
           (modifiers.hasOwnProperty(node.property.name) ||
           getters.hasOwnProperty(node.property.name))) {
+        console.log(node);
         const currCodeBit = tempJSArr[chainPosition];
         getcurrCodeBitProps(node, parent, currCodeBit, parentChain,
                          getters, modifiers);
@@ -99,11 +104,11 @@ class Main extends Component {
   }
 
   setSelectors() {
+    // console.log(document.getElementById('js-player__htmlviewer___1Tl7_'));
     this.setState({ selectors: {tagName:'div'} });
   }
 
   setJSArr() {
-    console.log('here');
     this.setState({ jsArr: getNewJSArr(this.state.js) });
   }
 
