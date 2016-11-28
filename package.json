@@ -9,7 +9,7 @@
     "heroku-postbuild": "webpack -p --config ./webpack.config.prod.js --progress",
     "knex": "knex",
     "lint": "eslint src",
-    "start": "node server.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
