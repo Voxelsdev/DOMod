@@ -30,8 +30,8 @@ router.get('/github',
 router.get('/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }), //failure to authenticate
   (req, res, next) => {
-    console.log(req);
-    res.redirect('/');
+    console.log(req.user.email);
+    // res.redirect('/');
   });
 
   // router.get('/meetup/callback', passport.authenticate('meetup', {
@@ -78,44 +78,7 @@ router.get('/github/callback',
   //                   snippetName: 'conditionalConsole',
   //                   snippetType: 'javascript',
   //                   lessonName: 'javascript'
-  //                 },
-  //                 {
-  //                   snippet: '\'use strict\';\n\nfunction helloWorld() {\n  return \'Hello world\';\n}\n\nhelloWorld();',
-  //                   snippetName: 'helloWorld',
-  //                   snippetType: 'javascript',
-  //                   lessonName: 'javascript'
-  //                 },
-  //                 {
-  //                   snippet: '/*Functions are a way of telling JavaScript to perform one or many actions.\nWrite a simple function that divides a number by 2.\n\nexample: function divideByTwo() {\n\n  return [Your Code Here]\n}\n\ndivideByTwo()*/',
-  //                   snippetName: 'functionJs',
-  //                   snippetType: 'comment',
-  //                   lessonName: 'javascript'
-  //                 },
-  //                 {
-  //                   snippet: '/*Now, take the function above and add an argument called num to the parameters.\nInstead of dividing a number by two, divide the argument by two.\n\nexample: function divideByTwo(num) {\n\n  return [Your Code Here]\n}\n\ndivideByTwo(64)*/',
-  //                   snippetName: 'functionJsTwo',
-  //                   snippetType: 'comment',
-  //                   lessonName: 'javascript'
-  //                 },
-  //                 {
-  //                   snippet: '/*Numbers in javascript work just like numbers in\nthe real world. Try doing some basic math below.\n\nexample: 1 + 1*/',
-  //                   snippetName: 'numberJs',
-  //                   snippetType: 'comment',
-  //                   lessonName: 'javascript'
-  //                 },
-  //                 {
-  //                   snippet: '/*In JavaScript, code written inside of quotes is called a string.\nType your name in quotes, then type a semi-colon.\n\nexample: \'Bill Murray\';*/',
-  //                   snippetName: 'stringsJs',
-  //                   snippetType: 'comment',
-  //                   lessonName: 'javascript'
-  //                 },
-  //                 {
-  //                   snippet: '/*Variables are places where you can store information.\nYou declare a variable using the keyword, var.\nTry storing a string in a variable.\n\nexample: var greeting = \'Hello World\';\n\ngreeting;*/',
-  //                   snippetName: 'varJs',
-  //                   snippetType: 'comment',
-  //                   lessonName: 'javascript'
-  //                 }
-  //               ];
+  //                 }];
   //
   //               for (const snippet of defaultSnippets) {
   //                 snippet.userId = userId;
@@ -214,7 +177,5 @@ router.get('/github/callback',
   //   res.clearCookie('loggedIn');
   //   res.redirect('/');
   // });
-  //
-  //
-  // module.exports = router;
+
 module.exports = router;
