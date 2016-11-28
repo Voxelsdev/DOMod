@@ -29,17 +29,19 @@ class JSController extends Component {
 
     return (
       <div id={Styles.controlPanel}>
-        <button className={Styles.controllerButton}>
-          <img className={Styles.controlButtonIcon} />
-                {/* src={require('file!./icons/last.png')} /> */}
-        </button>
         <p id={Styles.controllerTitle}>javascript controller</p>
-        <button className={Styles.controllerButton}
-                onClick={this.props.setSelectors}>
-          <img className={Styles.controlButtonIcon}
-               onClick={this.showUserHTML}/>
-               {/* src={require('file!./icons/next.png')}/> */}
-        </button>
+        <div id={Styles.buttonContainer}>
+          <button className={Styles.controllerButton}
+                  onClick={this.props.setJSArrIndex}
+                  id="getNextInJSArr">
+            &#8635;
+          </button>
+          <button className={Styles.controllerButton}
+                  onClick={this.props.setJSArrIndex}
+                  id="startJSArrOver">
+            &#8674;
+          </button>
+        </div>
         <div id={Styles.userHTML} ref={(div) => {this.textInput = div;}}>
           {this.state.htmlToReactParser.parse(this.props.html)}
         </div>

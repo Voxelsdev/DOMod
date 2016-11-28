@@ -25,14 +25,14 @@ class Editor extends PureComponent {
 
   render() {
     return <div className={styles.editorContainer}>
-          <AceEditor
-            ref="htmlinput"
-            mode="html"
-            theme="tomorrow_night_eighties"
-            width="100%"
-            value={this.props.html}
-            onChange={this.props.changeHTML}
-          />
+        <AceEditor
+          ref="htmlinput"
+          mode="html"
+          theme="tomorrow_night_eighties"
+          width="100%"
+          value={this.props.html}
+          onChange={this.props.changeHTML}
+        />
         <input
           className={classnames('u-full-width', styles.parseHtml)}
           onClick={this.parseHtml}

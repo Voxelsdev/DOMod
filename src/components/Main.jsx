@@ -82,13 +82,14 @@ class Main extends Component {
       js: '// Add js here',
       tree: d3.layout.tree().size([500, 500]),
       selectors: null,
-      jsArr: []
+      jsArr: [],
+      jsArrIndex: 0
     }
     this.changeHTML = this.changeHTML.bind(this);
     this.changeJS = this.changeJS.bind(this);
     this.setJsonFromHtml = this.setJsonFromHtml.bind(this);
-    this.setSelectors = this.setSelectors.bind(this);
     this.setJSArr = this.setJSArr.bind(this);
+    this.setJSArrIndex = this.setJSArrIndex.bind(this);
   }
 
   changeHTML(html) {
@@ -103,13 +104,13 @@ class Main extends Component {
     this.setState({ jsonFromHtml });
   }
 
-  setSelectors() {
-    // console.log(document.getElementById('js-player__htmlviewer___1Tl7_'));
-    this.setState({ selectors: {tagName:'div'} });
-  }
-
   setJSArr() {
     this.setState({ jsArr: getNewJSArr(this.state.js) });
+  }
+
+  setJSArrIndex(event) {
+    console.log(event.target.id);
+    this.setState({ jsArrIndex: 0 });
   }
 
   render() {
@@ -129,14 +130,16 @@ class Main extends Component {
                     js={this.state.js}
                     changeJS={this.changeJS}
                     setJsonFromHtml={this.setJsonFromHtml}
-                    setJSArr={this.setJSArr} />
+                    setJSArr={this.setJSArr}
+                    setJSArrIndex={this.setJSArrIndex} />
           }/>
           <Match pattern="/js-player" exactly render={
             () => <JSPlayer
                     html={this.state.html}
                     js={this.state.js}
                     jsArr={this.state.jsArr}
-                    setSelectors={this.setSelectors} />
+                    setSelectors={this.setSelectors}
+                    setJSArrIndex={this.setJSArrIndex} />
           }/>
         </div>
       </div>

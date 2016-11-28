@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Match } from 'react-router';
 import classnames from 'classnames';
-import Main from './Main';
+// import Main from './Main';
 // import Signup from './signup';
 // import Login from './login';
 

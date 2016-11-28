@@ -8,16 +8,10 @@
 .controllerButton {
   width: 40px;
   height: 40px;
-  display: flex;
-  justify-content: center;
   border-radius: 100%;
-  margin: 0px;
+  margin: 0px 2px 0px 2px;
   padding: 0;
-}
-
-.controlButtonIcon {
-  width: 25px;
-  height: 25px;
+  font-size: 22px;
 }
 
 #controllerTitle {

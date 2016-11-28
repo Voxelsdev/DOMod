@@ -35,8 +35,8 @@ class JSPlayer extends Component {
         <div id={Styles.htmlviewer}>
           {this.getIndentedHTML()}
         </div>
-        <JSController setSelectors={this.props.setSelectors}
-                      html={this.props.html}/>
+        <JSController html={this.props.html}
+                      setJSArrIndex={this.props.setJSArrIndex}/>
         <div id={Styles.jsviewer}>
           {this.getIndentedHighlightedJS()}
         </div>

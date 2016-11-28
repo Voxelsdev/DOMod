@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import styles from './css/domtree';
 import d3 from 'd3';
 
 import Node from './Node.jsx';
