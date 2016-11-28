@@ -38,7 +38,7 @@ app.use(require('webpack-hot-middleware')(compiler));
 
 app.use('/dist', express.static('dist'));
 
-const parser = require('./src/routes/parser.js');
+const parser = require('./routes/parser.js');
 
 app.use(parser);
 
@@ -55,7 +55,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// const auth = require('./src/routes/auth');
+// const auth = require('./routes/auth');
 
 // app.use('/auth', auth);
 

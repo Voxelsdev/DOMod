@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router';
 
 import Header from './Header';
-import Main from './Main';
-import Styles from './css/app';
+import Router from './Router';
+import styles from './css/app';
 
 class App extends Component {
   render() {
@@ -11,7 +11,7 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Header />
-          <Main />
+          <Router />
         </div>
       </BrowserRouter>
     )
