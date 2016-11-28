@@ -28,7 +28,7 @@
     "babel",
     "react-transform"
   ],
-  "author": "Saralyn Ogden <Saralyn.Ogden@gmail.com> (http://github.com/SaralynOgden)",
+  "author": "Saralyn Ogden <Saralyn.Ogden@gmail.com> (http://github.com/SaralynOgden) Tyler Miller <tylermillerome@gmail.com> (http://github.com/Voxelsdev)",
   "license": "CC0-1.0",
   "bugs": {
     "url": "https://github.com/gaearon/react-transform-boilerplate/issues"
