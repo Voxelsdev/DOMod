@@ -47,7 +47,8 @@ class Editor extends PureComponent {
           value={this.props.js}
           onChange={this.props.changeJS}
         />
-        <button>
+        <button
+          onClick={this.props.setJSArr}>
           <Link to='/js-player'>Run JS</Link>
         </button>
     </div>

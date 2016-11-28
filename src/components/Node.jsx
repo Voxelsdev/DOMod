@@ -8,7 +8,6 @@ import Styles from './css/node';
 class Node extends Component {
   render() {
     let matchesSelector = false;
-    console.log(this.props.currentPage);
 
     for (const selector in this.props.selectors) {
       if (this.props[selector] === this.props.selectors[selector]) {
