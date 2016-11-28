@@ -2,32 +2,34 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'cheap-module-eval-source-map',
   entry: [
     './src/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/dist/'
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false
-      }
     })
   ],
+  resolve: {
+    extensions: ['', '.js', '.jsx', '.json', '.css', '.png'],
+    modulesDirectories: [
+      'node_modules'
+    ]
+  },
   module: {
     loaders: [{
-      test: /\.js$/,
-      loaders: ['babel'],
+      test: /\.js|\.jsx$/,
+      loaders: ['babel-loader'],
       include: path.join(__dirname, 'src')
     }, {
       test: /\.css/,
@@ -49,5 +51,10 @@ module.exports = {
         'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
       ]
     }]
+  },
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
   }
 };

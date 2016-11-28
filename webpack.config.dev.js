@@ -5,8 +5,6 @@ module.exports = {
   // or devtool: 'eval' to debug issues with compiled output:
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    // necessary for hot reloading with IE:
-    'eventsource-polyfill',
     // listen to code updates emitted by hot middleware:
     'webpack-hot-middleware/client',
     // your code:
@@ -30,7 +28,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js|\.jsx$/,
-      loaders: ['babel'],
+      loaders: ['babel-loader'],
       include: path.join(__dirname, 'src')
     }, {
       test: /\.css/,
