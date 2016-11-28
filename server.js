@@ -9,11 +9,12 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const webpack = require('webpack');
 const config = require('./webpack.config.dev');
-const port = process.env.PORT || 3000;
 const compiler = webpack(config);
 
 require('dotenv').load();
 require('dotenv').config({path: __dirname + '/.env'});
+
+const port = process.env.PORT || 3000;
 
 const passport = require('passport');
 
