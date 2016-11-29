@@ -1,15 +1,15 @@
-.lineofcode, .highlightedlineofcode {
-  margin: 0;
-}
-
-.highlightedlineofcode {
-  background-color: orange;
-}
-
 #htmlviewer {
   border: solid;
 }
 
 #jsviewer {
   border: solid;
+}
+
+.lineOfCode, .highlightedLineOfCode {
+  margin: 0;
+}
+
+.highlightedLineOfCode {
+  background-color: #999966;
 }

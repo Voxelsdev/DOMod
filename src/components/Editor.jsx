@@ -40,12 +40,14 @@ class Editor extends PureComponent {
           value="Parse HTML!"
         />
         <AceEditor
-          ref="jsinput"
+          ref="jsInput"
           mode="javascript"
           theme="tomorrow_night_eighties"
           width="100%"
           value={this.props.js}
           onChange={this.props.changeJS}
+          markers={[{startRow: 0, startCol: 0, endRow: 2, endCol: 200,
+                  className: styles.domManipulator, type:"background"}]}
         />
         <button
           onClick={this.props.setJSArr}>

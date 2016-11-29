@@ -59,7 +59,6 @@ const getNewJSArr = function(js) {
       if (node.type === "MemberExpression" &&
           (modifiers.hasOwnProperty(node.property.name) ||
           getters.hasOwnProperty(node.property.name))) {
-        console.log(node);
         const currCodeBit = tempJSArr[chainPosition];
         getcurrCodeBitProps(node, parent, currCodeBit, parentChain,
                          getters, modifiers);
@@ -109,8 +108,12 @@ class Main extends Component {
   }
 
   setJSArrIndex(event) {
-    console.log(event.target.id);
-    this.setState({ jsArrIndex: 0 });
+    if (event.target.id === 'getNextInJsArr' &&
+        this.state.jsArrIndex !== this.state.jsArr.length) {
+      this.setState({ jsArrIndex: this.state.jsArrIndex + 1 });
+    } else {
+      this.setState({ jsArrIndex: 0 });
+    }
   }
 
   render() {

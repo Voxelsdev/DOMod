@@ -22,7 +22,7 @@ class JSController extends Component {
   componentDidUpdate() {
     const newHTML = getHTMLString(this.textInput)
                       .replace(/<!--[\s\S]*?-->/g, '');
-    console.log(newHTML.substring(newHTML.indexOf('>') + 1, newHTML.lastIndexOf('<')));
+    newHTML.substring(newHTML.indexOf('>') + 1, newHTML.lastIndexOf('<'));
   }
 
   render() {
@@ -33,12 +33,12 @@ class JSController extends Component {
         <div id={Styles.buttonContainer}>
           <button className={Styles.controllerButton}
                   onClick={this.props.setJSArrIndex}
-                  id="getNextInJSArr">
+                  id="startJSArrOver">
             &#8635;
           </button>
           <button className={Styles.controllerButton}
                   onClick={this.props.setJSArrIndex}
-                  id="startJSArrOver">
+                  id="getNextInJSArr">
             &#8674;
           </button>
         </div>
