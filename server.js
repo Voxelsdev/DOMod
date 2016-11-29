@@ -11,8 +11,11 @@ const webpack = require('webpack');
 const config = require('./webpack.config.dev');
 const compiler = webpack(config);
 
-require('dotenv').load();
-require('dotenv').config({path: __dirname + '/.env'});
+console.log(process.env.NODE_ENV);
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 const port = process.env.PORT || 3000;
 
