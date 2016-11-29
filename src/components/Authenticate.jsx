@@ -5,7 +5,7 @@ import styles from './css/login';
 
 class Login extends Component {
   handleLogin() {
-    // window.location.href = '/auth/github';
+    window.location.href = '/auth/github';
     // axios.get('/auth/github')
     //   .then(res => {
     //     console.log(res);
