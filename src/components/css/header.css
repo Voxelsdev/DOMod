@@ -1,26 +1,40 @@
 .navbar {
-  height: 50px;
+  height: 46px;
   background-color: #e4e4e4;
-  border-bottom: 4px solid black;
+  /*border-bottom: 4px solid black;*/
 }
 
 .login {
-  margin-top: 5px;
-  margin-bottom: 0;
   height: 100%;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-bottom: 0;
+  border: none;
+  border-bottom: 3px solid #C0B283;
+  border-radius: 0;
+  box-sizing: border-box;
+  font-size: 15px;
+  font-weight: lighter;
 }
 
 .login:hover {
-  border-color: #C0B283;
-  background-color: #f4f4f4;
+  border-color: #aa9655;
+  font-weight: bold;
+}
+
+#titleContainer {
+  display: flex;
+  justify-content: space-around;
 }
 
 #title {
   text-align: center;
-  line-height: 50px;
+  line-height: 46px;
   font-size: 25px;
   font-weight: bold;
   box-sizing: border-box;
   margin: 0;
   color: #373737;
+  display: flex;
+  justify-content: space-around;
 }
