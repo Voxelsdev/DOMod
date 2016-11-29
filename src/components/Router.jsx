@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Match } from 'react-router';
+import { Match, Miss } from 'react-router';
 import classnames from 'classnames';
 import Main from './Main';
 import Login from './Authenticate';
@@ -10,6 +10,7 @@ class Router extends Component {
     this.state = {
       loggedIn: false,
     }
+    this.handleLoginState = this.handleLoginState.bind(this);
   }
 
   handleLoginState(isLogged) {

@@ -4,6 +4,11 @@ import axios from 'axios';
 import styles from './css/login';
 
 class Login extends Component {
+  constructor() {
+    super();
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
   handleLogin() {
     this.props.handleLoginState(true);
     window.location.href='/auth/github';

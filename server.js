@@ -48,17 +48,17 @@ app.use(parser);
 //   if (/json/.test(req.get('Accept'))) {
 //     return next();
 //   }
-//   console.log('lol csrf');
+//
 //   res.sendStatus(406);
 // });
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
 
 const auth = require('./routes/auth');
 
 app.use('/auth', auth);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 app.listen(port, err => {
   if (err) {
