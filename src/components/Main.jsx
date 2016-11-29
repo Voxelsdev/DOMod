@@ -126,7 +126,14 @@ class Main extends Component {
                      selectors={this.state.selectors} />
         </div>
         <div className="four columns">
-          <Match pattern="/" exactly render={
+          <Editor html={this.state.html}
+                  changeHTML={this.changeHTML}
+                  js={this.state.js}
+                  changeJS={this.changeJS}
+                  setJsonFromHtml={this.setJsonFromHtml}
+                  setJSArr={this.setJSArr}
+                  setJSArrIndex={this.setJSArrIndex} />
+          {/* <Match pattern="/" exactly render={
             () => <Editor
                     html={this.state.html}
                     changeHTML={this.changeHTML}
@@ -135,15 +142,15 @@ class Main extends Component {
                     setJsonFromHtml={this.setJsonFromHtml}
                     setJSArr={this.setJSArr}
                     setJSArrIndex={this.setJSArrIndex} />
-          }/>
-          <Match pattern="/js-player" exactly render={
+          }/> */}
+          {/* <Match pattern="/js-player" exactly render={
             () => <JSPlayer
                     html={this.state.html}
                     js={this.state.js}
                     jsArr={this.state.jsArr}
                     setSelectors={this.setSelectors}
                     setJSArrIndex={this.setJSArrIndex} />
-          }/>
+          }/> */}
         </div>
       </div>
     )

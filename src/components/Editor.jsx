@@ -7,6 +7,7 @@ import parser from 'himalaya';
 import styles from './css/editor';
 
 import AceEditor from 'react-ace';
+import Toggle from './Toggle';
 
 import brace from 'brace';
 import 'brace/mode/html';
@@ -24,9 +25,14 @@ class Editor extends PureComponent {
   }
 
   render() {
+    const currentUrl = window.location.href.toString();
+    const currentPage = currentUrl.substring(currentUrl.lastIndexOf('/'));
+    console.log(currentPage === '/')
+
     return <div className={styles.editorContainer}>
+        <Toggle />
         <AceEditor
-          ref="htmlinput"
+          readOnly = {currentPage === '/js-player'}
           mode="html"
           theme="tomorrow_night_eighties"
           width="100%"
@@ -40,7 +46,6 @@ class Editor extends PureComponent {
           value="Parse HTML!"
         />
         <AceEditor
-          ref="jsInput"
           mode="javascript"
           theme="tomorrow_night_eighties"
           width="100%"
