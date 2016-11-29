@@ -38,12 +38,12 @@ class Controller extends Component {
     return (
       <div id={Styles.controlPanel}>
         <Toggle setEditorMode={this.props.setEditorMode}/>
-        <button id={!this.props.testMode ?
+        <button id={this.props.testMode ?
                     Styles.parseHTMLButton: Styles.hiddenParseHTMLButton}
                 onClick={this.parseHtml}>
           parse HTML
         </button>
-        <div id={this.props.testMode ?
+        <div id={!this.props.testMode ?
                   Styles.playButtonContainer:Styles.hiddenPlayButtonContainer}>
           <button className={Styles.controllerButton}
                   onClick={this.props.setJSArrIndex}

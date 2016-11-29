@@ -29,7 +29,7 @@ class Editor extends PureComponent {
 
     return <div className={styles.editorContainer}>
         <Controller html={this.props.html}
-                    testMode={this.props.editorMode}
+                    testMode={this.props.testMode}
                     setEditorMode={this.props.setEditorMode}
                     setJSArrIndex={this.props.setJSArrIndex}
                     setJSONFromHTML={this.props.setJSONFromHTML}/>

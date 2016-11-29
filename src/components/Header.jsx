@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import classnames from 'classnames';
-import styles from './css/header';
+import Styles from './css/header';
 
 class Header extends Component {
   constructor() {
@@ -13,7 +13,11 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <div
+        <Link to="/"
+              id={Styles.title}>&lt;DOMOD/&gt;</Link>
+        <Link to="/login"
+              id={Styles.login}>Login</Link>
+        {/* <div
           className={classnames(styles.navbar, 'row')}>
           <div className="four columns offset-by-four" id={styles.titleContainer}>
             <p id={styles.title}>
@@ -35,7 +39,7 @@ class Header extends Component {
               </button>
             </Link>
           </div>
-        </div>
+        </div> */}
       </header>
     )
   }
