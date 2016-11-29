@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Match } from 'react-router';
 import classnames from 'classnames';
 import Main from './Main';
-import Login from './Log';
+import Login from './Login';
 
 class Router extends Component {
   render() {
