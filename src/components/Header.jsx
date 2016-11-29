@@ -17,29 +17,6 @@ class Header extends Component {
               id={Styles.title}>&lt;DOMOD/&gt;</Link>
         <Link to="/login"
               id={Styles.login}>Login</Link>
-        {/* <div
-          className={classnames(styles.navbar, 'row')}>
-          <div className="four columns offset-by-four" id={styles.titleContainer}>
-            <p id={styles.title}>
-              <Link  to="/"
-              style={{
-                color: '#373737',
-                textDecoration: 'none',
-                textTransform: 'uppercase',
-              }}>
-              <span id={styles.openBracket}>{this.openBracket} </span>DOMod <span id={styles.closingBracket}>/></span></Link>
-            </p>
-          </div>
-        </div>
-        <div className={classnames(styles.navbar, 'row')}>
-          <div className="two columns login">
-            <Link to="/login">
-              <button className={classnames('u-full-width', styles.login)}>
-                Login
-              </button>
-            </Link>
-          </div>
-        </div> */}
       </header>
     )
   }
