@@ -15,7 +15,7 @@ const GitHubStrategy = require('passport-github2').Strategy;
 passport.use(new GitHubStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: 'https://dommodded.herokuapp.com/auth/github/callback',
+  callbackURL: 'https://domodded.herokuapp.com/auth/github/callback',
   scope: [ 'user:email' ],
 }, (accessToken, refreshToken, profile, done) => {
   return done(null, { profile, accessToken, refreshToken });
