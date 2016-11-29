@@ -43,7 +43,7 @@ class Editor extends PureComponent {
           className={classnames('u-full-width', styles.parseHtml)}
           onClick={this.parseHtml}
           type="submit"
-          value="Parse HTML!"
+          value="Click to Parse HTML!"
         />
         <AceEditor
           mode="javascript"
