@@ -1,17 +1,16 @@
 .navbar {
-  height: 46px;
+  height: 35px;
   background-color: #e4e4e4;
-  /*border-bottom: 4px solid black;*/
+  border-bottom: 1px solid black;
 }
 
 .login {
-  height: 100%;
-  margin-top: 5px;
-  margin-left: 10px;
+  height: 35px;
   margin-bottom: 0;
   border: none;
   border-bottom: 3px solid #C0B283;
   border-radius: 0;
+  border-color: #888;
   box-sizing: border-box;
   font-size: 15px;
   font-weight: lighter;
@@ -29,7 +28,7 @@
 
 #title {
   text-align: center;
-  line-height: 46px;
+  line-height: 35px;
   font-size: 25px;
   font-weight: bold;
   box-sizing: border-box;

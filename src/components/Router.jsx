@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Match } from 'react-router';
 import classnames from 'classnames';
 import Main from './Main';
-import Login from './Login';
+import Login from './Authenticate';
 
 class Router extends Component {
   render() {
@@ -11,7 +11,6 @@ class Router extends Component {
         <Match pattern="/" exactly component={Main} />
         <Match pattern="/js-player" component={Main} />
         <Match pattern="/login" component={Login} />
-        {/* <Match pattern="/signup" component={Signup} /> */}
       </div>
     )
   }

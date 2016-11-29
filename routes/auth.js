@@ -16,14 +16,15 @@ passport.use(new GitHubStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
   callbackURL: process.env.HOST + "/auth/github/callback",
+  scope: [ 'user:email' ],
 }, (accessToken, refreshToken, profile, done) => {
   return done(null, { profile, accessToken, refreshToken });
 }));
 
 router.get('/github',
   passport.authenticate('github', {
-    scope: [ 'user:email' ]
-  }), (req, res) => { });
+    session: false,
+  }), (req, res) => { res.json(req.user) });
 
 router.get('/github/callback',
   passport.authenticate('github',

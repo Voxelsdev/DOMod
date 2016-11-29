@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import classnames from 'classnames';
+// import axios from 'axios';
+// import classnames from 'classnames';
 import styles from './css/login';
 
 class Login extends Component {
-  login() {
-    axios.get('/auth/github')
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log('error: ', err);
-      });
+  handleLogin() {
+    window.location.href = '/auth/github';
+    // axios.get('/auth/github')
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log('error: ', err);
+    //   });
   }
 
   render() {
@@ -20,7 +21,7 @@ class Login extends Component {
         <button
           className='button'
           id={styles.redirectBtn}
-          onClick={this.login}>
+          onClick={this.handleLogin}>
         Login with GitHub!</button>
       </div>
     )
