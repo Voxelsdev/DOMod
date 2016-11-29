@@ -3,13 +3,10 @@ import { Match, Miss } from 'react-router';
 import escodegen from 'escodegen';
 import esprima from 'esprima';
 import estraverse from 'estraverse';
-
 import classnames from 'classnames';
+
 import DOMviewer from './DOMviewer';
 import Editor from './Editor';
-import JSPlayer from './JSPlayer';
-
-// import Signup from './signup';
 // import Login from './Login';
 
 const getcurrCodeBitProps = function(node, parent, currCodeBit, parentChain,
@@ -76,17 +73,19 @@ class Main extends Component {
   constructor() {
     super();
     this.state = {
-      html: '<!-- Add html here -->',
+      html: '<div><!-- Add html here --></div>',
       jsonFromHtml: null,
       js: '// Add js here',
       tree: d3.layout.tree().size([500, 500]),
       selectors: null,
       jsArr: [],
-      jsArrIndex: 0
+      jsArrIndex: 0,
+      testMode: false
     }
     this.changeHTML = this.changeHTML.bind(this);
     this.changeJS = this.changeJS.bind(this);
-    this.setJsonFromHtml = this.setJsonFromHtml.bind(this);
+    this.setEditorMode = this.setEditorMode.bind(this);
+    this.setJSONFromHTML = this.setJSONFromHTML.bind(this);
     this.setJSArr = this.setJSArr.bind(this);
     this.setJSArrIndex = this.setJSArrIndex.bind(this);
   }
@@ -99,7 +98,7 @@ class Main extends Component {
     this.setState({ js });
   }
 
-  setJsonFromHtml(jsonFromHtml) {
+  setJSONFromHTML(jsonFromHtml) {
     this.setState({ jsonFromHtml });
   }
 
@@ -116,6 +115,10 @@ class Main extends Component {
     }
   }
 
+  setEditorMode() {
+    this.setState({ editorMode: !this.state.editorMode });
+  }
+
   render() {
 
     return (
@@ -128,29 +131,13 @@ class Main extends Component {
         <div className="four columns">
           <Editor html={this.state.html}
                   changeHTML={this.changeHTML}
+                  testMode={this.state.editorMode}
                   js={this.state.js}
                   changeJS={this.changeJS}
-                  setJsonFromHtml={this.setJsonFromHtml}
+                  setEditorMode={this.setEditorMode}
+                  setJSONFromHTML={this.setJSONFromHTML}
                   setJSArr={this.setJSArr}
                   setJSArrIndex={this.setJSArrIndex} />
-          {/* <Match pattern="/" exactly render={
-            () => <Editor
-                    html={this.state.html}
-                    changeHTML={this.changeHTML}
-                    js={this.state.js}
-                    changeJS={this.changeJS}
-                    setJsonFromHtml={this.setJsonFromHtml}
-                    setJSArr={this.setJSArr}
-                    setJSArrIndex={this.setJSArrIndex} />
-          }/> */}
-          {/* <Match pattern="/js-player" exactly render={
-            () => <JSPlayer
-                    html={this.state.html}
-                    js={this.state.js}
-                    jsArr={this.state.jsArr}
-                    setSelectors={this.setSelectors}
-                    setJSArrIndex={this.setJSArrIndex} />
-          }/> */}
         </div>
       </div>
     )

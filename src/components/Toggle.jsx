@@ -7,12 +7,13 @@ class Toggle extends Component {
 
     return (
       <div className={Style.toggleContainer}>
-        <h5>Edit</h5>
+        <p>EDIT</p>
         <label className={Style.switch}>
-          <input type="checkbox"></input>
+          <input type="checkbox"
+                 onClick={this.props.setEditorMode}></input>
           <div className={Style.slider}></div>
         </label>
-        <h5>Test</h5>
+        <p>TEST</p>
       </div>
     )
   }
