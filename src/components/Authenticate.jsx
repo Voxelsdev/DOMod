@@ -11,7 +11,7 @@ class Login extends Component {
     //     console.log(res);
     //   })
     //   .catch(err => {
-        // console.log('error: ', err);
+    //     console.log('error: ', err);
     //   });
   }
 
