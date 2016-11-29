@@ -1,9 +1,23 @@
-html {
-  height: 100vh;
+#login {
   background-image: url('https://enterprise.github.com/assets/aws/jetpack-octocat-airlock-b4e1d022c0113c997328f6598d16e58ad049140e50da4859d6b4d174890bb1c8.jpg');
   background-size: cover;
   background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 #firstRow {
   margin-top: 10px;
+}
+
+#redirectBtn {
+  background-color: #DCD0C0;
+  border-color: #DCD0C0;
+}
+
+#redirectBtn:hover {
+  background-color: #C0B283;
+  border-color: #C0B283;
 }

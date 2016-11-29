@@ -55,9 +55,9 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// const auth = require('./routes/auth');
+const auth = require('./routes/auth');
 
-// app.use('/auth', auth);
+app.use('/auth', auth);
 
 app.listen(port, err => {
   if (err) {

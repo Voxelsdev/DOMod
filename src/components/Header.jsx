@@ -21,15 +21,7 @@ class Header extends Component {
                                         DOMod</Link></p>
           </div>
 
-          <div className="two columns offset-by-five signup">
-            <Link to="/signup">
-              <button className={classnames('u-full-width', styles.login)}>
-                Signup
-              </button>
-            </Link>
-          </div>
-
-          <div className="two columns login">
+          <div className="two columns login offset-by-seven">
             <Link to="/login">
               <button className={classnames('u-full-width', styles.login)}>
                 Login

@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-const knex = require('../../knex');
+// const knex = require('knex');
 const boom = require('boom');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
@@ -15,7 +15,7 @@ const GitHubStrategy = require('passport-github2').Strategy();
 passport.use(new GitHubStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: process.env.HOST + "/auth/github/callback",
+  callbackURL: process.env.HOST + "/github/callback",
 }, (accessToken, refreshToken, profile, done) => {
   return done(null, { profile, accessToken, refreshToken });
 }));
@@ -23,16 +23,16 @@ passport.use(new GitHubStrategy({
 router.get('/github',
   passport.authenticate('github', {
     scope: [ 'user:email' ]
-  }), (req, res) => {
-    res.json(req.user);
-});
+  }), (req, res) => { });
 
 router.get('/github/callback',
-  passport.authenticate('github', { failureRedirect: '/login' }), //failure to authenticate
-  (req, res, next) => {
-    console.log(req.user.email);
-    // res.redirect('/');
-  });
+  passport.authenticate('github',
+    { failureRedirect: '/login', successRedirect: '/' }), //failure to authenticate
+    (req, res, next) => {
+      // user authenticated
+      console.log(req);
+      // res.redirect('/');
+      });
 
   // router.get('/meetup/callback', passport.authenticate('meetup', {
   //   failureRedirect: '/login' }), (req, res, next) => {
