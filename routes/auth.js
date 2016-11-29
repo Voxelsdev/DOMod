@@ -8,14 +8,14 @@ const boom = require('boom');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
 const passport = require('passport');
-const GitHubStrategy = require('passport-github2').Strategy();
+const GitHubStrategy = require('passport-github2').Strategy;
 
 // import CryptoJs from 'crypto-js';
 
 passport.use(new GitHubStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: process.env.HOST + "/github/callback",
+  callbackURL: process.env.HOST + "/auth/github/callback",
 }, (accessToken, refreshToken, profile, done) => {
   return done(null, { profile, accessToken, refreshToken });
 }));
