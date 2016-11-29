@@ -5,12 +5,30 @@ import Main from './Main';
 import Login from './Authenticate';
 
 class Router extends Component {
+  constructor() {
+    super();
+    this.state = {
+      loggedIn: false,
+    }
+  }
+
+  handleLoginState(isLogged) {
+    if (!isLogged) {
+      return this.setState({ loggedIn: isLogged });
+    }
+
+    this.setState({ loggedIn: isLogged });
+  }
+
   render() {
     return (
       <div>
         <Match pattern="/" exactly component={Main} />
         <Match pattern="/js-player" component={Main} />
-        <Match pattern="/login" component={Login} />
+        <Match pattern="/login" render={
+          () => <Login
+                  handleLoginState={this.handleLoginState}
+          />} />
       </div>
     )
   }
