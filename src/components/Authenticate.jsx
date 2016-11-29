@@ -10,7 +10,7 @@ class Login extends Component {
   }
 
   handleLogin() {
-    this.props.handleLoginState(true);
+    // this.props.handleLoginState(true);
     window.location.href='/auth/github';
   }
 
