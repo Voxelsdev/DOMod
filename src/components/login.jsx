@@ -6,7 +6,7 @@ class Login extends Component {
   render() {
     return (
       <div className="row">
-        <div className="row">
+        {/* <div className="row">
           <div className={classnames('six', 'columns', 'offset-by-three')} id={styles.firstRow}>
             <input type="text" className="u-full-width" placeholder="Github Username"></input>
           </div>
@@ -20,7 +20,7 @@ class Login extends Component {
           <div className={classnames('three', 'columns', 'offset-by-six')}>
             <input className={classnames('u-full-width')} type="button" value="Login using GitHub" />
           </div>
-        </div>
+        </div> */}
       </div>
     )
   }
