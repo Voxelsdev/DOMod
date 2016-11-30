@@ -25,31 +25,48 @@ class Editor extends PureComponent {
     this.props.setJsonFromHtml(parser.parse(this.props.html));
   }
 
+  componentDidUpdate() {
+    const linesOfJS = this.refs.jsEditor
+                                .refs.editor.getElementsByClassName('ace_line');
+    if (this.props.testMode) {
+      linesOfJS[0].style.backgroundColor = 'pink';
+    } else {
+      for (const line of linesOfJS) {
+        line.style.backgroundColor = 'transparent';
+      }
+    }
+  }
+
   render() {
+    console.log(this.props.jsArr);
 
     return <div className={styles.editorContainer}>
         <Controller html={this.props.html}
                     testMode={this.props.testMode}
-                    setEditorMode={this.props.setEditorMode}
+                    setJSArr={this.props.setJSArr}
                     setJSArrIndex={this.props.setJSArrIndex}
-                    setJSONFromHTML={this.props.setJSONFromHTML}/>
+                    setJSONFromHTML={this.props.setJSONFromHTML}
+                    setTestMode={this.props.setTestMode}/>
         <AceEditor
-          readOnly={this.props.testMode}
           mode="html"
+          onChange={this.props.setHTML}
+          readOnly={this.props.testMode}
+          tabSize = {2}
           theme="tomorrow_night_eighties"
           width="100%"
           value={this.props.html}
-          onChange={this.props.changeHTML}
         />
         <AceEditor
-          readOnly={this.props.testMode}
+          markers={this.props.testMode ? [{startRow: 3, startCol: 0, endRow: 4, endCol: 1,
+                className: styles.domManipulator, type:"background"}]: []}
           mode="javascript"
+          onChange={this.props.setJS}
+          readOnly={this.props.testMode}
+          ref="jsEditor"
+          tabSize = {2}
           theme="tomorrow_night_eighties"
           width="100%"
           value={this.props.js}
-          onChange={this.props.changeJS}
-          markers={[{startRow: 0, startCol: 0, endRow: 2, endCol: 200,
-                  className: styles.domManipulator, type:"background"}]}
         />
     </div>
   }

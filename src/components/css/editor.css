@@ -4,6 +4,10 @@
   margin-bottom: 0;
 }
 
+.currentLine {
+  background-color: #004600;
+}
+
 .domManipulator {
   background-color: #4b4b4b;
 }

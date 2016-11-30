@@ -27,23 +27,23 @@ class Controller extends Component {
     this.props.setJSONFromHTML(parser.parse(this.props.html));
   }
 
-  // componentDidUpdate() {
-  //   const newHTML = getHTMLString(this.textInput)
-  //                     .replace(/<!--[\s\S]*?-->/g, '');
-  //   newHTML.substring(newHTML.indexOf('>') + 1, newHTML.lastIndexOf('<'));
-  // }
+  componentDidUpdate() {
+    const newHTML = getHTMLString(this.textInput)
+                      .replace(/<!--[\s\S]*?-->/g, '');
+    newHTML.substring(newHTML.indexOf('>') + 1, newHTML.lastIndexOf('<'));
+  }
 
   render() {
 
     return (
       <div id={Styles.controlPanel}>
-        <Toggle setEditorMode={this.props.setEditorMode}/>
-        <button id={this.props.testMode ?
+        <Toggle setTestMode={this.props.setTestMode}/>
+        <button id={!this.props.testMode ?
                     Styles.parseHTMLButton: Styles.hiddenParseHTMLButton}
                 onClick={this.parseHtml}>
           parse HTML
         </button>
-        <div id={!this.props.testMode ?
+        <div id={this.props.testMode ?
                   Styles.playButtonContainer:Styles.hiddenPlayButtonContainer}>
           <button className={Styles.controllerButton}
                   onClick={this.props.setJSArrIndex}
@@ -56,9 +56,10 @@ class Controller extends Component {
             &#8674;
           </button>
         </div>
-        {/* <div id={Styles.userHTML} ref={(div) => {this.textInput = div;}}>
-          {this.state.htmlToReactParser.parse(this.props.html)}
-        </div> */}
+        <div id={Styles.userHTML} ref={(div) => {this.textInput = div;}}>
+          {this.props.testMode ?
+            this.state.htmlToReactParser.parse(this.props.html):''}
+        </div>
       </div>
     );
   }

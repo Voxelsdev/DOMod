@@ -10,7 +10,7 @@ class Toggle extends Component {
         <p>EDIT</p>
         <label className={Style.switch}>
           <input type="checkbox"
-                 onClick={this.props.setEditorMode}></input>
+                 onClick={this.props.setTestMode}></input>
           <div className={Style.slider}></div>
         </label>
         <p>TEST</p>

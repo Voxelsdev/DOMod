@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Match, Miss } from 'react-router';
+
+import classnames from 'classnames';
 import escodegen from 'escodegen';
 import esprima from 'esprima';
 import estraverse from 'estraverse';
-import classnames from 'classnames';
 
 import DOMviewer from './DOMviewer';
 import Editor from './Editor';
-// import Login from './Login';
 
 const getcurrCodeBitProps = function(node, parent, currCodeBit, parentChain,
                                   getters, modifiers) {
@@ -73,35 +73,28 @@ class Main extends Component {
   constructor() {
     super();
     this.state = {
-      html: localStorage.html || '<div><!-- Add html here --></div>',
-      jsonFromHtml: null,
-      js: localStorage.js || '// Add js here',
-      tree: d3.layout.tree().size([500, 500]),
-      selectors: null,
+      html: '<div><!-- Add html here --></div>',
+      js: '// Add js here',
       jsArr: [],
-      jsArrIndex: 0,
-      testMode: false
+      jsArrIndex: -1,
+      jsonFromHtml: null,
+      testMode: false,
+      tree: d3.layout.tree().size([500, 500])
     }
-    this.changeHTML = this.changeHTML.bind(this);
-    this.changeJS = this.changeJS.bind(this);
-    this.setEditorMode = this.setEditorMode.bind(this);
+    this.setHTML = this.setHTML.bind(this);
+    this.setJS = this.setJS.bind(this);
     this.setJSONFromHTML = this.setJSONFromHTML.bind(this);
     this.setJSArr = this.setJSArr.bind(this);
     this.setJSArrIndex = this.setJSArrIndex.bind(this);
+    this.setTestMode = this.setTestMode.bind(this);
   }
 
-  changeHTML(html) {
-    localStorage.html = html;
+  setHTML(html) {
     this.setState({ html });
   }
 
-  changeJS(js) {
-    localStorage.js = js;
+  setJS(js) {
     this.setState({ js });
-  }
-
-  setJSONFromHTML(jsonFromHtml) {
-    this.setState({ jsonFromHtml });
   }
 
   setJSArr() {
@@ -109,16 +102,21 @@ class Main extends Component {
   }
 
   setJSArrIndex(event) {
-    if (event.target.id === 'getNextInJsArr' &&
-        this.state.jsArrIndex !== this.state.jsArr.length) {
+    if (event.target.id === 'getNextInJSArr' &&
+        this.state.jsArrIndex !== this.state.jsArr.length - 1) {
       this.setState({ jsArrIndex: this.state.jsArrIndex + 1 });
     } else {
       this.setState({ jsArrIndex: 0 });
     }
   }
 
-  setEditorMode() {
-    this.setState({ editorMode: !this.state.editorMode });
+  setJSONFromHTML(jsonFromHtml) {
+    this.setState({ jsonFromHtml });
+  }
+
+  setTestMode() {
+    this.setState({ testMode: !this.state.testMode });
+    this.setJSArr();
   }
 
   render() {
@@ -127,19 +125,20 @@ class Main extends Component {
       <div className="row">
         <div className="eight columns">
           <DOMviewer tree={this.state.tree}
-                     jsonFromHtml={this.state.jsonFromHtml}
-                     selectors={this.state.selectors} />
+                     jsonFromHtml={this.state.jsonFromHtml} />
         </div>
         <div className="four columns">
           <Editor html={this.state.html}
-                  changeHTML={this.changeHTML}
-                  testMode={this.state.editorMode}
                   js={this.state.js}
-                  changeJS={this.changeJS}
-                  setEditorMode={this.setEditorMode}
-                  setJSONFromHTML={this.setJSONFromHTML}
+                  jsArr={this.state.jsArr}
+                  jsArrIndex={this.state.jsArrIndex}
+                  testMode={this.state.testMode}
+                  setHTML={this.setHTML}
+                  setJS={this.setJS}
                   setJSArr={this.setJSArr}
-                  setJSArrIndex={this.setJSArrIndex} />
+                  setJSArrIndex={this.setJSArrIndex}
+                  setJSONFromHTML={this.setJSONFromHTML}
+                  setTestMode={this.setTestMode} />
         </div>
       </div>
     )

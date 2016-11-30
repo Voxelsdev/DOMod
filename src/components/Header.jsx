@@ -6,8 +6,6 @@ import Styles from './css/header';
 class Header extends Component {
   constructor() {
     super();
-    this.openBracket = '<';
-    this.closingBracket = '/>';
   }
 
   render() {
