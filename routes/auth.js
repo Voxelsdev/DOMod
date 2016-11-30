@@ -30,9 +30,6 @@ router.get('/github/callback',
   passport.authenticate('github',
   { failureRedirect: '/login'}), (req, res, next) => {
     const user = req.user;
-
-    console.log(user);
-
     const userEmail = user.profile.emails[0].value;
     const avatarUrl = JSON.parse(user.profile._raw).avatar_url;
 
