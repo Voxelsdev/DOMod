@@ -32,7 +32,7 @@ router.get('/github/callback',
       const userEmail = req.user;
 
       console.log('USER_EMAIL: ', userEmail);
-
+      res.redirect('/');
       // knex('users')
       // .select(knex.raw('1=1'))
       // .where('email', userEmail)
