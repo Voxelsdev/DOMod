@@ -31,10 +31,10 @@ router.get('/github/callback',
     { failureRedirect: '/login'}), (req, res, next) => {
       const user = req.user;
 
-      console.log(user.profile.displayName);
-      console.log(user.profile.emails[0]);
-      console.log(user.profile.username);
+      console.log(user.profile.emails[0].value);
       console.log(user.profile.avatar_url);
+      console.log(user.profile._raw);
+      console.log(user.profile._raw.avatar_url);
       res.redirect('/');
       // knex('users')
       // .select(knex.raw('1=1'))
