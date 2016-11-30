@@ -6,7 +6,7 @@
     "build": "npm run clean && npm run build:webpack",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js --display-error-details",
     "clean": "rimraf dist",
-    "heroku-postbuild": "knex migrate:latest",
+    "heroku-postbuild": "npm run build",
     "knex": "knex",
     "lint": "eslint src",
     "start": "node server.js"
