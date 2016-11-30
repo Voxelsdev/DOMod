@@ -24,10 +24,8 @@ class Router extends Component {
   render() {
     return (
       <div>
-        <Match pattern="/" exactly component={Main}>
-
-        </Match>
-        <Match pattern="/js-player" component={Main}></Match>
+        <Match pattern="/" exactly component={Main} />
+        <Match pattern="/js-player" component={Main} />
         <Match pattern="/login" render={
           () => <Login
                   handleLoginState={this.handleLoginState}
