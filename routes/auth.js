@@ -28,10 +28,12 @@ router.get('/github',
 
 router.get('/github/callback',
   passport.authenticate('github',
-    { failureRedirect: '/login', successRedirect: '/'}),
-    (req, res, next) => {
-      const userEmail = req.user;
-      console.log('ALKBLKSDJBLKJBLAKSJFBLAKJSBFLKJSABFLKJBASF');
+    { failureRedirect: '/login',
+      successRedirect: '/'}), (req, res, next) => {
+      const userEmail = req;
+
+      console.log(userEmail);
+
       // knex('users')
       // .select(knex.raw('1=1'))
       // .where('email', userEmail)
