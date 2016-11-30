@@ -28,33 +28,38 @@ router.get('/github',
 
 router.get('/github/callback',
   passport.authenticate('github',
-    { failureRedirect: '/login'}), (req, res, next) => {
-      const user = req.user;
-      const userEmail = user.profile.emails[0].value;
-      const avatarUrl = JSON.parse(user.profile._raw).avatar_url;
+  { failureRedirect: '/login'}), (req, res, next) => {
+    const user = req.user;
 
-      res.redirect('/');
-      // knex('users')
-      // .select(knex.raw('1=1'))
-      // .where('email', userEmail)
-      // .then(result => {
-      //   if (!result) {
-      //     // creates a new user!
-      //     const newUser = {
-      //       userEmail,
-      //     }
-      //
-      //     knex('users').insert(decamelizeKeys(newUser), '*')
-      //     .then(users => {
-      //       return users;
-      //     }).catch((err) => {
-      //       next(err);
-      //     });
-      //   }
-      // })
-      // .catch(err => {
-      //   next(err);
-      // })
+    console.log(user);
+
+    const userEmail = user.profile.emails[0].value;
+    const avatarUrl = JSON.parse(user.profile._raw).avatar_url;
+
+    knex('users')
+    .select(knex.raw('1=1'))
+    .where('email', userEmail)
+    .then(result => {
+      if (!result) {
+        // creates a new user
+        const newUser = {
+          userEmail,
+          avatarUrl,
+        }
+
+        knex('users').insert(decamelizeKeys(newUser), '*')
+        .then(users => {
+          return users;
+        }).catch((err) => {
+          next(err);
+        });
+      }
+    })
+    .catch(err => {
+      next(err);
     });
+
+    res.redirect('/');
+  });
 
 module.exports = router;

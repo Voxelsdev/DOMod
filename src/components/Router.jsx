@@ -2,25 +2,10 @@ import React, { Component } from 'react';
 import { Match, Miss } from 'react-router';
 import classnames from 'classnames';
 import Main from './Main';
+// import Profile from './Profile';
 import Login from './Authenticate';
 
 class Router extends Component {
-  constructor() {
-    super();
-    this.state = {
-      loggedIn: false,
-    }
-    this.handleLoginState = this.handleLoginState.bind(this);
-  }
-
-  handleLoginState(isLogged) {
-    if (!isLogged) {
-      return this.setState({ loggedIn: isLogged });
-    }
-
-    this.setState({ loggedIn: isLogged });
-  }
-
   render() {
     return (
       <div>
@@ -28,9 +13,10 @@ class Router extends Component {
         <Match pattern="/js-player" component={Main} />
         <Match pattern="/login" render={
           () => <Login
-                  handleLoginState={this.handleLoginState}
+                  handleLoginState={this.props.handleLoginState}
                 />}
         />
+        {/* <Math pattern="/profile" component={Profile} /> */}
       </div>
     )
   }
