@@ -30,11 +30,11 @@ router.get('/github/callback',
   passport.authenticate('github',
     { failureRedirect: '/login'}), (req, res, next) => {
       const user = req.user;
+      const userEmail = user.profile.emails[0].value;
+      const avatarUrl = JSON.parse(user.profile._raw).avatar_url;
+      console.log('user email: ' + userEmail);
+      console.log('avatar url: ' + avatarUrl);
 
-      console.log(user.profile.emails[0].value);
-      console.log(user.profile.avatar_url);
-      console.log(user.profile._raw);
-      console.log(user.profile._raw.avatar_url);
       res.redirect('/');
       // knex('users')
       // .select(knex.raw('1=1'))
