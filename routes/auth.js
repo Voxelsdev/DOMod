@@ -32,8 +32,6 @@ router.get('/github/callback',
       const user = req.user;
       const userEmail = user.profile.emails[0].value;
       const avatarUrl = JSON.parse(user.profile._raw).avatar_url;
-      console.log('user email: ' + userEmail);
-      console.log('avatar url: ' + avatarUrl);
 
       res.redirect('/');
       // knex('users')
