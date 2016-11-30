@@ -73,9 +73,9 @@ class Main extends Component {
   constructor() {
     super();
     this.state = {
-      html: '<div><!-- Add html here --></div>',
+      html: localStorage.html || '<div><!-- Add html here --></div>',
       jsonFromHtml: null,
-      js: '// Add js here',
+      js: localStorage.js || '// Add js here',
       tree: d3.layout.tree().size([500, 500]),
       selectors: null,
       jsArr: [],
@@ -91,10 +91,12 @@ class Main extends Component {
   }
 
   changeHTML(html) {
+    localStorage.html = html;
     this.setState({ html });
   }
 
   changeJS(js) {
+    localStorage.js = js;
     this.setState({ js });
   }
 

@@ -28,9 +28,9 @@ router.get('/github',
 
 router.get('/github/callback',
   passport.authenticate('github',
-    { failureRedirect: '/login', successRedirect: '/' }), //failure to authenticate
+    { failureRedirect: '/login', successRedirect: '/'}),
     (req, res, next) => {
-      const userEmail = req.user.email;
+      const userEmail = req.user;
       console.log(userEmail);
       // knex('users')
       // .select(knex.raw('1=1'))
@@ -49,6 +49,9 @@ router.get('/github/callback',
       //       next(err);
       //     });
       //   }
+      // })
+      // .catch(err => {
+      //   next(err);
       // })
     });
 
