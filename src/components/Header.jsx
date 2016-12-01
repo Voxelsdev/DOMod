@@ -14,6 +14,7 @@ class Header extends Component {
   }
 
   render() {
+    console.log(this.props.loggedIn);
     return (
       <header>
         <Link to="/" id={Styles.title}>&lt;DOMOD /&gt;</Link>
@@ -21,7 +22,7 @@ class Header extends Component {
           <Link to="/login" className={Styles.navbtn}>Login</Link>
         }
 
-        {(this.props.loggedIn && window.location.href !== process.env.HOST) &&
+        {(this.props.loggedIn && window.location.href === process.env.HOST) &&
           <a className={Styles.navbtn}>Save Snippet</a>
         }
 

@@ -10,7 +10,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      loggedOut: false,
+      loggedIn: false,
     }
     this.handleLoginState = this.handleLoginState.bind(this);
     this.getCookie = this.getCookie.bind(this);
@@ -42,9 +42,7 @@ class App extends Component {
 
     // if not logged in and is logging in
     if (!isLoggedIn && isLoggingIn) {
-      // set login state to whatever the cookie is
       this.setState({ loggedIn: isLoggedIn });
-      // send to github
       window.location.href = '/auth/github';
     }
   }
