@@ -7,13 +7,6 @@ import Toggle from './Toggle';
 
 import Styles from './css/controller';
 
-const getHTMLString = function(userHTML) {
-  const tempNode = document.createElement('div');
-  tempNode.appendChild(userHTML.cloneNode(true));
-  const str = tempNode.innerHTML;
-  return str;
-}
-
 class Controller extends Component {
   constructor() {
     super();
@@ -25,12 +18,6 @@ class Controller extends Component {
 
   parseHtml() {
     this.props.setJSONFromHTML(parser.parse(this.props.html));
-  }
-
-  componentDidUpdate() {
-    const newHTML = getHTMLString(this.textInput)
-                      .replace(/<!--[\s\S]*?-->/g, '');
-    newHTML.substring(newHTML.indexOf('>') + 1, newHTML.lastIndexOf('<'));
   }
 
   render() {
