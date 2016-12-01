@@ -5,7 +5,7 @@ class Profile extends Component {
   render() {
     return (
       <div>
-        
+        <button>hello</button>
       </div>
     )
   }

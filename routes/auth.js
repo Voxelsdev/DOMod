@@ -33,7 +33,7 @@ router.get('/github/callback',
     const email = user.profile.emails[0].value;
     const avatarUrl = JSON.parse(user.profile._raw).avatar_url;
 
-    console.log(email);
+    // console.log(email);
 
     knex('users')
       .select(knex.raw('1=1'))
