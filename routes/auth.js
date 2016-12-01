@@ -32,8 +32,7 @@ router.get('/github/callback',
     const user = req.user;
     const email = user.profile.emails[0].value;
     const avatarUrl = JSON.parse(user.profile._raw).avatar_url;
-
-    // console.log(email);
+    const githubId = user.profile.id;
 
     knex('users')
       .select(knex.raw('1=1'))
@@ -43,6 +42,7 @@ router.get('/github/callback',
           const newUser = {
             email,
             avatarUrl,
+            githubId,
           }
 
           knex('users').insert(decamelizeKeys(newUser), '*')
@@ -54,7 +54,8 @@ router.get('/github/callback',
         }
 
         const expiry = new Date(Date.now() + 1000 * 60 * 60 * 3);
-        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '3h' });
+        // USER.PROFILE.ID IS THEIR GITHUB ID
+        const token = jwt.sign({ userId: user.profile.id }, process.env.JWT_SECRET, { expiresIn: '3h' });
 
         res.cookie('token', token, {
           httpOnly: true,

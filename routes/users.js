@@ -14,6 +14,7 @@ router.get('/snippets', authenticate, (req, res, next) => {
     .innerJoin('snippets', 'snippets.id', 'snippets_users.snippet_id')
     .innerJoin('users', 'users.id', 'snippets_users.user_id')
     .orderBy('snippets.id', 'ASC')
+    .where('users.github_id', userId)
     .then((rows) => {
       const snippets = camelizeKeys(rows);
 

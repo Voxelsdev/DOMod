@@ -5,6 +5,7 @@ exports.up = function(knex) {
     table.increments();
     table.string('email').notNullable().unique();
     table.string('avatar_url').notNullable().unique();
+    table.integer('github_id').notNullable().unique();
     table.timestamps(true, true);
   });
 };
