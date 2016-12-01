@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-// import classnames from 'classnames';
 import styles from './css/login';
 
 class Login extends Component {

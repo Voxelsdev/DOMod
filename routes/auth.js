@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-const knex = require('knex');
+const knex = require('../knex.js');
 const boom = require('boom');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
@@ -30,17 +30,18 @@ router.get('/github/callback',
   passport.authenticate('github',
   { failureRedirect: '/login'}), (req, res, next) => {
     const user = req.user;
-    const userEmail = user.profile.emails[0].value;
+    const email = user.profile.emails[0].value;
     const avatarUrl = JSON.parse(user.profile._raw).avatar_url;
+
+    console.log(email);
 
     knex('users')
       .select(knex.raw('1=1'))
-      .where('email', userEmail)
-      .then(result => {
-        if (!result) {
-          // creates a new user
+      .where('email', email)
+      .then((result) => {
+        if (!result.length) {
           const newUser = {
-            userEmail,
+            email,
             avatarUrl,
           }
 
