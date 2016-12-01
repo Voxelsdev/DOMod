@@ -2,15 +2,17 @@
 
 const jwt = require('jsonwebtoken');
 
-const check = function(req, res, next) {
-  jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.sendStatus(401);
-    }
+class check {
+  myjwt(req, res, next) {
+    jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        return res.sendStatus(401);
+      }
 
-    req.token = decoded;
-    next();
-  });
+      req.token = decoded;
+      next();
+    });
+  }
 };
 
-module.exports = check;
+export default check;
