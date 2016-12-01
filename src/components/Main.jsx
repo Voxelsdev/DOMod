@@ -43,6 +43,9 @@ const evalJSArr = function(js) {
         numOfLines = (currJS.match(/\n/g) || []).length + 1;
       }
       if (node.type === 'Identifier') {
+        if (node.name === 'document') {
+          node.name = 'bodyFromUser';
+        }
         if (parent.type === 'VariableDeclarator' ||
             parent.type === 'AssignmentExpression') {
           identifiers[node.name] = true;
@@ -74,12 +77,19 @@ const evalJSArr = function(js) {
   return { jsArr, domArr };
 }
 
+const runCodeSoFar = function(jsArr, endIndex) {
+  for (let i = 0; i < endIndex; i++) {
+    codeToRun += jsArr[i].nonThreatJS;
+  }
+  eval(codeToRun);
+}
+
 class Main extends Component {
   constructor() {
     super();
     this.state = {
       domArr: [],
-      html: '<div><!-- Add html here --></div>',
+      html: '<body><!-- Add html here --></body>',
       js: '// Put body of JS function here',
       jsArr: [],
       jsArrEndIndex: -1,
@@ -115,6 +125,7 @@ class Main extends Component {
         break;
       }
     }
+    runCodeSoFar(this.state.jsArr, endIndex);
     this.setState({ jsArrStartIndex: this.state.jsArrEndIndex + 1,
                     jsArrEndIndex: endIndex });
   }

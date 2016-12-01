@@ -35,15 +35,8 @@ class DOMtree extends Component {
 
       return (
         <g className="domtree">
-          {links.map((link, key) => {
-            if (link.target.tagName) {
-              return this.makeLink(link, key);
-            }
-          })}
-          {nodes.map((node, key) => {
-            if (node.tagName) {
-              return this.makeNode(node, key);
-            }
+          {links.map((link, key) => this.makeLink(link, key))}
+          {nodes.map((node, key) => this.makeNode(node, key))}
           })
         }
         </g>

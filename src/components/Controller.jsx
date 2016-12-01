@@ -7,6 +7,22 @@ import Toggle from './Toggle';
 
 import Styles from './css/controller';
 
+function fixUpParsedHTML(obj) {
+  if (obj.hasOwnProperty('children')) {
+    for (let i = obj.children.length - 1; i >= 0; i--) {
+      if (!obj.children[i].hasOwnProperty('tagName')) {
+        obj.children.splice(i, 1);
+      } else {
+        // if (obj.children.attributes.hasOwnProperty('id')) {
+        //   obj.children.attributes.id = `__${obj.children.attributes.id}`;
+        // }
+        // if (obj.children.attributes.has)
+        fixUpParsedHTML(obj.children[i]);
+      }
+    }
+  }
+}
+
 class Controller extends Component {
   constructor() {
     super();
@@ -17,7 +33,9 @@ class Controller extends Component {
   }
 
   parseHtml() {
-    this.props.setJSONFromHTML(parser.parse(this.props.html));
+    const htmlTree = parser.parse(this.props.html);
+    fixUpParsedHTML(htmlTree[0]);
+    this.props.setJSONFromHTML(htmlTree);
   }
 
   render() {

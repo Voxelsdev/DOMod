@@ -47,7 +47,6 @@ class Editor extends PureComponent {
     const linesOfJS = this.refs.jsEditor
                                 .refs.editor.getElementsByClassName('ace_line');
     for (const line of linesOfJS) {
-      console.log('here');
       line.style.backgroundColor = 'transparent';
     }
     highlightDOMLines(this.props.testMode, linesOfJS, this.props.domArr);

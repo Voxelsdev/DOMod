@@ -16,7 +16,7 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <Link to="/" id={Styles.title}>&lt;DOMOD/&gt;</Link>
+        <Link to="/" id={Styles.title}>&lt;DOMOD /&gt;</Link>
         {!this.props.loggedIn &&
           <Link to="/login" id={Styles.login}>Login</Link>
         }
