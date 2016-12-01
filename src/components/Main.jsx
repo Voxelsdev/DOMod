@@ -73,8 +73,8 @@ class Main extends Component {
   constructor() {
     super();
     this.state = {
-      html: '<div><!-- Add html here --></div>',
-      js: '// Add js here',
+      html: localStorage.html || '<div><!-- Add html here --></div>',
+      js: localStorage.javascript || '// Add js here',
       jsArr: [],
       jsArrIndex: -1,
       jsonFromHtml: null,
@@ -90,10 +90,12 @@ class Main extends Component {
   }
 
   setHTML(html) {
+    localStorage.html = html;
     this.setState({ html });
   }
 
   setJS(js) {
+    localStorage.javascript = js;
     this.setState({ js });
   }
 

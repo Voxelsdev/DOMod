@@ -10,7 +10,7 @@ const { camelizeKeys, decamelizeKeys } = require('humps');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 
-// import CryptoJs from 'crypto-js';
+const jwt = require('jsonwebtoken');
 
 passport.use(new GitHubStrategy({
   clientID: process.env.CLIENT_ID,
@@ -34,29 +34,45 @@ router.get('/github/callback',
     const avatarUrl = JSON.parse(user.profile._raw).avatar_url;
 
     knex('users')
-    .select(knex.raw('1=1'))
-    .where('email', userEmail)
-    .then(result => {
-      if (!result) {
-        // creates a new user
-        const newUser = {
-          userEmail,
-          avatarUrl,
+      .select(knex.raw('1=1'))
+      .where('email', userEmail)
+      .then(result => {
+        if (!result) {
+          // creates a new user
+          const newUser = {
+            userEmail,
+            avatarUrl,
+          }
+
+          knex('users').insert(decamelizeKeys(newUser), '*')
+          .then(users => {
+            return users;
+          }).catch((err) => {
+            next(err);
+          });
         }
 
-        knex('users').insert(decamelizeKeys(newUser), '*')
-        .then(users => {
-          return users;
-        }).catch((err) => {
-          next(err);
+        const expiry = new Date(Date.now() + 1000 * 60 * 60 * 3);
+        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '3h' });
+
+        res.cookie('token', token, {
+          httpOnly: true,
+          expires: expiry,
+          secure: router.get('env') === 'production',
         });
-      }
+        res.cookie('loggedIn', 'true');
+        res.redirect('/');
     })
     .catch(err => {
       next(err);
     });
-
-    res.redirect('/');
   });
+
+router.get('/logout', (req, res) => {
+  const expiry = new Date(Date.now() + 1000 * 60 * 60 * 3);
+  res.cookie('loggedIn', 'false', { expires: expiry});
+  res.clearCookie('token');
+  res.redirect('/');
+});
 
 module.exports = router;

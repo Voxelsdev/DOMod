@@ -6,10 +6,14 @@ import Styles from './css/header';
 class Header extends Component {
   constructor() {
     super();
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout() {
+    this.props.handleLoginState(true, false);
   }
 
   render() {
-    console.log(this.props);
     return (
       <header>
         <Link to="/" id={Styles.title}>&lt;DOMOD/&gt;</Link>
@@ -20,7 +24,9 @@ class Header extends Component {
         {this.props.loggedIn &&
           <div>
             <Link to="/profile" id={Styles.login}>Profile</Link>
-            <Link to="/logout" id={Styles.login}>Logout</Link>
+            <Link to="/"
+                  id={Styles.login}
+                  onClick={this.handleLogout}>Logout</Link>
           </div>
         }
 
