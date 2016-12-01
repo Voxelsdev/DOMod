@@ -18,14 +18,18 @@ class Header extends Component {
       <header>
         <Link to="/" id={Styles.title}>&lt;DOMOD /&gt;</Link>
         {!this.props.loggedIn &&
-          <Link to="/login" id={Styles.login}>Login</Link>
+          <Link to="/login" className={Styles.navbtn}>Login</Link>
+        }
+
+        {(this.props.loggedIn && window.location.href !== process.env.HOST) &&
+          <a className={Styles.navbtn}>Save Snippet</a>
         }
 
         {this.props.loggedIn &&
           <div>
-            <Link to="/profile" id={Styles.login}>Profile</Link>
+            <Link to="/profile" className={Styles.navbtn}>Profile</Link>
             <Link to="/"
-                  id={Styles.login}
+                  className={Styles.navbtn}
                   onClick={this.handleLogout}>Logout</Link>
           </div>
         }

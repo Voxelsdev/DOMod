@@ -100,7 +100,6 @@
     "react-dom": "^15.3",
     "react-router": "^4.0.0-alpha.6",
     "rimraf": "^2.4.3",
-    "sqlite3": "^3.1.8",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.3",

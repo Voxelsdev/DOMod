@@ -11,6 +11,8 @@ const webpack = require('webpack');
 const config = require('./webpack.config.dev');
 const compiler = webpack(config);
 
+app.use(cookieParser());
+
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
@@ -53,8 +55,12 @@ app.use(parser);
 // });
 
 const auth = require('./routes/auth');
+const users = require('./routes/users');
+const snippets = require('./routes/snippets');
 
 app.use('/auth', auth);
+app.use('/users', users);
+app.use('/specific', snippets);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));

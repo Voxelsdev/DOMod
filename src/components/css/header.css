@@ -5,16 +5,7 @@ header {
   align-items: center;
 }
 
-#title {
-  float: center;
-  text-decoration: none;
-  padding-left: 35px;
-  margin: 0 auto;
-  font-size: 27px;
-  color: #373737;
-}
-
-#login {
+.navbtn {
   color: black;
   text-decoration: none;
   text-align: center;
@@ -28,7 +19,16 @@ header {
   font-size: 16px;
 }
 
-#login:hover {
+.navbtn:hover {
   border-color: #aa9655;
   font-weight: bold;
+}
+
+#title {
+  float: center;
+  text-decoration: none;
+  padding-left: 35px;
+  margin: 0 auto;
+  font-size: 27px;
+  color: #373737;
 }
