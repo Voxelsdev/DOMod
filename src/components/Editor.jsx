@@ -15,6 +15,24 @@ import 'brace/theme/tomorrow_night_eighties';
 
 import Controller from './Controller';
 
+const highlightCurrentLines = function(linesOfJS, startIndex, endIndex, jsArr) {
+  if (endIndex > -1) {
+    for (let i = 0; i < jsArr.length; i++) {
+      if (i >= startIndex && i <= endIndex) {
+        linesOfJS[i].style.backgroundColor = '#1d1d1d';
+      }
+    }
+  }
+}
+
+const highlightDOMLines = function(testMode, linesOfJS, domArr) {
+  for (let i = 0; i < domArr.length; i++) {
+    if (testMode) {
+      linesOfJS[domArr[i]].style.backgroundColor = '#3b444c';
+    }
+  }
+}
+
 class Editor extends PureComponent {
   constructor() {
     super();
@@ -28,22 +46,22 @@ class Editor extends PureComponent {
   componentDidUpdate() {
     const linesOfJS = this.refs.jsEditor
                                 .refs.editor.getElementsByClassName('ace_line');
+    for (const line of linesOfJS) {
+      console.log('here');
+      line.style.backgroundColor = 'transparent';
+    }
+    highlightDOMLines(this.props.testMode, linesOfJS, this.props.domArr);
     if (this.props.testMode) {
-      linesOfJS[0].style.backgroundColor = 'pink';
-    } else {
-      for (const line of linesOfJS) {
-        line.style.backgroundColor = 'transparent';
-      }
+      highlightCurrentLines(linesOfJS, this.props.jsArrStartIndex,
+                            this.props.jsArrEndIndex, this.props.jsArr);
     }
   }
 
   render() {
-    console.log(this.props.jsArr);
 
     return <div className={styles.editorContainer}>
         <Controller html={this.props.html}
                     testMode={this.props.testMode}
-                    setJSArr={this.props.setJSArr}
                     setJSArrIndex={this.props.setJSArrIndex}
                     setJSONFromHTML={this.props.setJSONFromHTML}
                     setTestMode={this.props.setTestMode}/>
@@ -57,8 +75,6 @@ class Editor extends PureComponent {
           value={this.props.html}
         />
         <AceEditor
-          markers={this.props.testMode ? [{startRow: 3, startCol: 0, endRow: 4, endCol: 1,
-                className: styles.domManipulator, type:"background"}]: []}
           mode="javascript"
           onChange={this.props.setJS}
           readOnly={this.props.testMode}

@@ -9,24 +9,9 @@ import estraverse from 'estraverse';
 import DOMviewer from './DOMviewer';
 import Editor from './Editor';
 
-const getcurrCodeBitProps = function(node, parent, currCodeBit, parentChain,
-                                  getters, modifiers) {
-  if (parentChain[1].type === "VariableDeclaration") {
-    currCodeBit.variableName = parentChain[1].declarations[0].id.name;
-  }
-  currCodeBit.domElement = node.object.name;
-  currCodeBit.modifier = modifiers.hasOwnProperty(node.property.name) ?
-                          node.property.name:null;
-  currCodeBit.getter = getters.hasOwnProperty(node.property.name) ?
-                          node.property.name:null;
-  if (parent.arguments) {
-    currCodeBit.argument = parent.arguments[0].value;
-  }
-}
-
-const getNewJSArr = function(js) {
-  const tempJSArr = [];
-  const parentChain = [];
+const evalJSArr = function(js) {
+  const jsArr = [];
+  const domArr = [];
   const getters = {
     getElementsByTagName: true,
     getElementsByClassName: true,
@@ -46,46 +31,68 @@ const getNewJSArr = function(js) {
     removeChild: true,
     createElement: true
   };
-  let chainPosition = -1;
+  let currJS = '';
+  let lineNum = 0;
+  let numOfLines = 0;
+  const identifiers = {};
   estraverse.traverse(esprima.parse(js), {
     enter(node, parent) {
       if (parent && parent.type === "Program") {
-        tempJSArr.push({js: escodegen.generate(node)});
-        chainPosition++;
+        currJS = escodegen.generate(node);
+        jsArr.push({ asscWithDOM: false });
+        numOfLines = (currJS.match(/\n/g) || []).length + 1;
       }
-      if (node.type === "MemberExpression" &&
+      if (node.type === 'Identifier') {
+        if (parent.type === 'VariableDeclarator' ||
+            parent.type === 'AssignmentExpression') {
+          identifiers[node.name] = true;
+          node.name = `__${node.name}`;
+        } else {
+          if (identifiers.hasOwnProperty(node.name)) {
+            node.name = `__${node.name}`;
+          }
+        }
+      }
+      if (node.type === 'MemberExpression' &&
           (modifiers.hasOwnProperty(node.property.name) ||
           getters.hasOwnProperty(node.property.name))) {
-        const currCodeBit = tempJSArr[chainPosition];
-        getcurrCodeBitProps(node, parent, currCodeBit, parentChain,
-                         getters, modifiers);
+        jsArr[jsArr.length - 1].asscWithDOM = true;
+        jsArr[jsArr.length - 1].endLine = lineNum + numOfLines - 1;
+        for (let i = lineNum; i <= lineNum; i++) {
+          domArr.push(i);
+        }
       }
-      parentChain.push(node);
     },
     leave(node, parent) {
-      parentChain.pop();
+      if (parent && parent.type === "Program") {
+        currJS = escodegen.generate(node);
+        jsArr[jsArr.length - 1].nonThreatJS = currJS;
+        lineNum += numOfLines;
+      }
     }
   });
-  return tempJSArr;
+  return { jsArr, domArr };
 }
 
 class Main extends Component {
   constructor() {
     super();
     this.state = {
-      html: localStorage.html || '<div><!-- Add html here --></div>',
-      js: localStorage.javascript || '// Add js here',
+      domArr: [],
+      html: '<div><!-- Add html here --></div>',
+      js: '// Put body of JS function here',
       jsArr: [],
-      jsArrIndex: -1,
+      jsArrEndIndex: -1,
+      jsArrStartIndex: -1,
       jsonFromHtml: null,
+      nonThreatJS: null,
       testMode: false,
       tree: d3.layout.tree().size([500, 500])
     }
     this.setHTML = this.setHTML.bind(this);
     this.setJS = this.setJS.bind(this);
-    this.setJSONFromHTML = this.setJSONFromHTML.bind(this);
-    this.setJSArr = this.setJSArr.bind(this);
     this.setJSArrIndex = this.setJSArrIndex.bind(this);
+    this.setJSONFromHTML = this.setJSONFromHTML.bind(this);
     this.setTestMode = this.setTestMode.bind(this);
   }
 
@@ -99,26 +106,29 @@ class Main extends Component {
     this.setState({ js });
   }
 
-  setJSArr() {
-    this.setState({ jsArr: getNewJSArr(this.state.js) });
-  }
-
   setJSArrIndex(event) {
-    if (event.target.id === 'getNextInJSArr' &&
-        this.state.jsArrIndex !== this.state.jsArr.length - 1) {
-      this.setState({ jsArrIndex: this.state.jsArrIndex + 1 });
-    } else {
-      this.setState({ jsArrIndex: 0 });
+    let endIndex = -1;
+    for (let i = this.state.jsArrEndIndex + 1;
+             i < this.state.jsArr.length; i++) {
+      if (this.state.jsArr[i].asscWithDOM) {
+        endIndex = this.state.jsArr[i].endLine;
+        break;
+      }
     }
+    this.setState({ jsArrStartIndex: this.state.jsArrEndIndex + 1,
+                    jsArrEndIndex: endIndex });
   }
 
   setJSONFromHTML(jsonFromHtml) {
     this.setState({ jsonFromHtml });
   }
 
-  setTestMode() {
+  setTestMode(event) {
+    if (!this.state.testMode) {
+      const { domArr, jsArr } = evalJSArr(this.state.js);
+      this.setState({ domArr, jsArr });
+    }
     this.setState({ testMode: !this.state.testMode });
-    this.setJSArr();
   }
 
   render() {
@@ -130,14 +140,15 @@ class Main extends Component {
                      jsonFromHtml={this.state.jsonFromHtml} />
         </div>
         <div className="four columns">
-          <Editor html={this.state.html}
+          <Editor domArr={this.state.domArr}
+                  html={this.state.html}
                   js={this.state.js}
                   jsArr={this.state.jsArr}
-                  jsArrIndex={this.state.jsArrIndex}
+                  jsArrEndIndex={this.state.jsArrEndIndex}
+                  jsArrStartIndex={this.state.jsArrStartIndex}
                   testMode={this.state.testMode}
                   setHTML={this.setHTML}
                   setJS={this.setJS}
-                  setJSArr={this.setJSArr}
                   setJSArrIndex={this.setJSArrIndex}
                   setJSONFromHTML={this.setJSONFromHTML}
                   setTestMode={this.setTestMode} />
