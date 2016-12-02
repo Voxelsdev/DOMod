@@ -96,7 +96,7 @@ class Header extends Component {
                     className={Styles.navbtn}
                     onClick={this.handleLogout}>Logout</Link>
             </div>
-            {(this.props.loggedIn && window.location.href === ('http://localhost:3000/')) &&
+            {(this.props.loggedIn && window.location.href === ('http://domodded.herokuapp.com/')) &&
               <div className={classnames('two', 'columns')}>
                 <button id={Styles.savebtn}
                         onClick={this.handleSave}>Save Snippet</button>
