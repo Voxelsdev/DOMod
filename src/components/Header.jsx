@@ -68,12 +68,23 @@ class Header extends Component {
     return (
       <header>
         <div className={classnames('one', 'columns')}>
-          <img src={this.state.avatarUrl} id={Styles.avatar}/>
+          {this.props.loggedIn &&
+            <img src={this.state.avatarUrl} id={Styles.avatar}/>
+          }
         </div>
-        <div className={classnames('four', 'columns', 'offset-by-three')}
-              id={Styles.titleContainer}>
-          <Link to="/" id={Styles.title}>&lt; DOMOD /&gt;</Link>
-        </div>
+
+        {this.props.loggedIn &&
+          <div className={classnames('four', 'columns', 'offset-by-three')}
+            id={Styles.titleContainer}>
+            <Link to="/" id={Styles.title}>&lt; DOMOD /&gt;</Link>
+          </div>
+        }
+        {!this.props.loggedIn &&
+          <div className={classnames('four', 'columns', 'offset-by-four')}
+            id={Styles.titleContainer}>
+            <Link to="/" id={Styles.title}>&lt; DOMOD /&gt;</Link>
+          </div>
+        }
         {!this.props.loggedIn &&
           <div className="row">
             <div className={classnames('one', 'columns', 'offset-by-three')}
