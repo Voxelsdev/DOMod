@@ -154,6 +154,7 @@ class Main extends Component {
   }
 
   render() {
+    console.log(window.height);
 
     return (
       <div id="main">
