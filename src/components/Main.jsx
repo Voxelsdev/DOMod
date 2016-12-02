@@ -23,10 +23,7 @@ const evalJSArr = function(js) {
     querySelectorAll: true,
     children: true,
     nextElementSibling: true,
-    nextSibling: true,
-    previousSibling: true,
-    firstChild: true,
-    lastChild: true,
+    previousElementSibling: true,
     parentElement: true
   }
   const modifiers = {
@@ -62,10 +59,11 @@ const evalJSArr = function(js) {
       if (node.type === 'MemberExpression' &&
           (modifiers.hasOwnProperty(node.property.name) ||
           getters.hasOwnProperty(node.property.name))) {
-        const domManipulator = parent.callee.property.name;
+        const domManipulator = node.property.name;
         if (getters.hasOwnProperty(domManipulator)) {
-          const domElement = parent.callee.object.name;
-          const argument = parent.arguments.length > 0 ?
+          const domElement = node.object.name === 'document' ?
+                                  'document':`__${node.object.name}`;
+          const argument = parent.arguments ?
                                         `(\'${parent.arguments[0].value}\')`:'';
           jsArr[jsArr.length - 1].domPart =
                         `${domElement}.${domManipulator}${argument}`;
@@ -159,8 +157,7 @@ class Main extends Component {
 
     return (
       <div id="main">
-        <Rnd
-             bounds={'parent'}
+        <Rnd bounds={'parent'}
              initial={{ x: 0, y: 0, width: 350, height: 1000 }}
              isResizable = {{
                top:false,

@@ -8,6 +8,47 @@ import Link from './Link.jsx';
 
 import Styles from './css/domtree';
 
+const haveSameClasses = function(highlightNodeJSON, node) {
+  if (!highlightNodeJSON.attributes.className && !node.attributes.className) {
+    return true;
+  }
+  if (!highlightNodeJSON.attributes.className || !node.attributes.className ||
+      highlightNodeJSON.attributes.className.length !==
+        node.attributes.className.length) {
+    return false;
+  }
+  for (let i = 0; i < highlightNodeJSON.attributes.className.length; i++) {
+    if (highlightNodeJSON[i] !== node[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+const highlightFromSingleElement = function(highlightNode, nodes) {
+  for (const node of nodes) {
+    const highlightNodeJSON =
+        parser.parse(highlightNode.outerHTML)[0];
+        node.color = (node.tagName === highlightNodeJSON.tagName &&
+                      node.attributes.id === highlightNodeJSON.attributes.id);
+  }
+}
+
+const highlightFromArrayOfElements = function(highlightArray, nodes) {
+  for (const node of nodes) {
+    let hasMatch = false;
+    let index = 0;
+    while (index < highlightArray.length - 1 && !hasMatch) {
+      const highlightNodeJSON =
+          parser.parse(highlightArray[index].outerHTML)[0];
+      hasMatch = (node.tagName === highlightNodeJSON.tagName &&
+          haveSameClasses(highlightNodeJSON, node));
+      index++;
+    }
+    node.color = hasMatch;
+  }
+}
+
 class DOMtree extends Component {
   makeNode(node, key) {
 
@@ -31,16 +72,15 @@ class DOMtree extends Component {
       const nodes = this.props.tree.nodes(this.props.jsonFromHTML[0]);
       const links = this.props.tree.links(nodes);
 
+      for (const node of nodes) {
+        node.color = false;
+      }
+
       if (this.props.highlightNode) {
-        if (!Array.isArray(this.props.highlightNode)) {
-          for (const node of nodes) {
-            const highlightNodeJSON =
-                    parser.parse(this.props.highlightNode.outerHTML)[0];
-            node.color = (node.tagName === highlightNodeJSON.tagName.toLowerCase() &&
-                node.attributes.id === highlightNodeJSON.attributes.id &&
-                node.attributes.class ===
-                      highlightNodeJSON.attributes.className);
-          }
+        if (!this.props.highlightNode[0]) {
+          highlightFromSingleElement(this.props.highlightNode, nodes);
+        } else {
+          highlightFromArrayOfElements(this.props.highlightNode, nodes);
         }
       }
 
