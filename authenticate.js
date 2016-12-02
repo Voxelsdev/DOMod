@@ -1,6 +1,6 @@
 'use strict';
 
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const myjwt = function(req, res, next) {
   jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err, decoded) => {
