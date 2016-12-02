@@ -8,7 +8,6 @@ const myjwt = function(req, res, next) {
       return res.sendStatus(401);
     }
 
-    console.log(decoded);
     req.token = decoded;
     next();
   });

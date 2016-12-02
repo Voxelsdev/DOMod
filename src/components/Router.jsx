@@ -15,12 +15,12 @@ class Router extends Component {
                       setHTML={this.props.setHTML}
                       setJS={this.props.setJS} />
         } />
-        {/* <Match pattern="/profile" component={Profile} />
+        <Match pattern="/profile" component={Profile} />
         <Match pattern="/login" render={
           () => <Login
                   handleLoginState={this.props.handleLoginState}
                 />}
-        /> */}
+        />
       </div>
     )
   }
