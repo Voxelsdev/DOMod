@@ -14,24 +14,31 @@ class Header extends Component {
   }
 
   render() {
-    console.log(this.props.loggedIn);
     return (
       <header>
-        <Link to="/" id={Styles.title}>&lt;DOMOD /&gt;</Link>
+        <div className={classnames('four', 'columns', 'offset-by-four')} id={Styles.titleContainer}>
+          <Link to="/" id={Styles.title}>&lt;DOMOD /&gt;</Link>
+        </div>
         {!this.props.loggedIn &&
           <Link to="/login" className={Styles.navbtn}>Login</Link>
         }
 
-        {(this.props.loggedIn && window.location.href === process.env.HOST) &&
-          <a className={Styles.navbtn}>Save Snippet</a>
-        }
-
         {this.props.loggedIn &&
-          <div>
-            <Link to="/profile" className={Styles.navbtn}>Profile</Link>
-            <Link to="/"
-                  className={Styles.navbtn}
-                  onClick={this.handleLogout}>Logout</Link>
+          <div className="row" id={Styles.navbtnContainer}>
+            <div className={classnames('one', 'columns')} id={Styles.profileContainer}>
+              <Link to="/profile"
+                    className={Styles.navbtn}>Profile</Link>
+            </div>
+            <div className={classnames('one', 'columns')} id={Styles.logoutContainer}>
+              <Link to="/"
+                    className={Styles.navbtn}
+                    onClick={this.handleLogout}>Logout</Link>
+            </div>
+            {(this.props.loggedIn && window.location.href === ('http://localhost:3000/')) &&
+              <div className={classnames('two', 'columns')}>
+                <button id={Styles.savebtn}>Save Snippet</button>
+              </div>
+            }
           </div>
         }
 

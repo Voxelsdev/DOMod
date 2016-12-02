@@ -38,15 +38,13 @@ class App extends Component {
 
   handleLoginState(isLoggingOut, isLoggingIn) {
     const isLoggedIn = (this.getCookie('loggedIn') === 'true');
+
     this.setState({ loggedIn: isLoggedIn });
+
     // if logged in and logging out
     if (isLoggedIn && isLoggingOut) {
-
-      // sets login cookie to false, clears token
       axios('/auth/logout')
         .then(() => {
-
-          // resets login state to cooke value
           return this.setState({ loggedIn: isLoggedIn });
         })
         .catch(err => {

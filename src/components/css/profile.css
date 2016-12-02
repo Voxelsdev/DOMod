@@ -1,0 +1,37 @@
+html {
+  height: 100vh;
+}
+
+body {
+  height: 100%;
+}
+
+.topRow, .midRow, .bottomRow {
+  text-align: center;
+}
+
+.bottomRow {
+  margin-bottom: 0;
+}
+
+.toHome {
+  height: 50px;
+  line-height: 50px;
+  text-decoration: none;
+  color: #9f9f9f;
+}
+
+.toHome:hover {
+  height: 50px;
+  line-height: 50px;
+  text-decoration: none;
+  color: #4f4f4f;
+}
+
+#toHomeContainer {
+  margin: auto;
+  height: 50px;
+  width: 200px;
+  border-radius: 4px;
+  border: 2px solid #aaa;
+}
