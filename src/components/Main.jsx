@@ -154,7 +154,7 @@ class Main extends Component {
   }
 
   render() {
-    console.log(window.height);
+    console.log(window.innerHeight);
 
     return (
       <div id="main">
@@ -171,13 +171,11 @@ class Main extends Component {
                topLeft:false
              }}
              minWidth={300}
-             minHeight={160}
              maxWidth={650}
-             maxHeight={300}
              moveAxis='none'
              onResize={this.setEditorWidth}>
-            <Editor
-                    domArr={this.state.domArr}
+            <Editor domArr={this.state.domArr}
+                    editorWidth={this.state.editorWidth}
                     html={this.props.html}
                     js={this.props.js}
                     jsArr={this.state.jsArr}

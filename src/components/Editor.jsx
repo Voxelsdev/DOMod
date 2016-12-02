@@ -4,9 +4,10 @@ import { Link } from 'react-router';
 
 import classnames from 'classnames';
 import parser from 'himalaya';
-import styles from './css/editor';
+import Styles from './css/editor';
 
 import AceEditor from 'react-ace';
+import Rnd from 'react-rnd';
 
 import brace from 'brace';
 import 'brace/mode/html';
@@ -58,12 +59,13 @@ class Editor extends PureComponent {
 
   render() {
 
-    return <div id={styles.editorContainer}>
+    return <div id={Styles.editorContainer}>
         <Controller html={this.props.html}
                     testMode={this.props.testMode}
                     setJSArrIndex={this.props.setJSArrIndex}
                     setJSONFromHTML={this.props.setJSONFromHTML}
                     setTestMode={this.props.setTestMode}/>
+        <p className={Styles.editorHeader}>HTML</p>
         <AceEditor
           mode="html"
           onChange={this.props.setHTML}
@@ -71,8 +73,10 @@ class Editor extends PureComponent {
           tabSize = {2}
           theme="tomorrow_night_eighties"
           width="100%"
+          height={window.innerHeight / 2 - 50}
           value={this.props.html}
         />
+        <p className={Styles.editorHeader}>JS</p>
         <AceEditor
           mode="javascript"
           onChange={this.props.setJS}
@@ -82,6 +86,7 @@ class Editor extends PureComponent {
           theme="tomorrow_night_eighties"
           width="100%"
           value={this.props.js}
+          height={window.innerHeight / 2 - 50}
         />
     </div>
   }

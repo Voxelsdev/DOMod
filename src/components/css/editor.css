@@ -1,3 +1,13 @@
 #editorContainer {
-  border-right: solid 3px #cc6666;
+  border-right: solid 2px #3d3d3d;
+}
+
+.editorHeader {
+  font-size: 14px;
+  padding: 0 0 0 20px;
+  margin: 0;
+  background-color: #ccc;
+  border-bottom: solid 2px #a3a3a3;
+  border-top: solid 2px #a3a3a3;
+  font-weight: bold;
 }
