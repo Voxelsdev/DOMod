@@ -9,14 +9,18 @@ class Router extends Component {
   render() {
     return (
       <div>
-        <Match pattern="/" exactly component={Main} />
-        <Match pattern="/js-player" component={Main} />
-        <Match pattern="/profile" component={Profile} />
+        <Match pattern="/" exactly render= {
+          () => <Main html={this.props.html}
+                      js={this.props.js}
+                      setHTML={this.props.setHTML}
+                      setJS={this.props.setJS} />
+        } />
+        {/* <Match pattern="/profile" component={Profile} />
         <Match pattern="/login" render={
           () => <Login
                   handleLoginState={this.props.handleLoginState}
                 />}
-        />
+        /> */}
       </div>
     )
   }

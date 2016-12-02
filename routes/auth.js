@@ -10,7 +10,7 @@ const { camelizeKeys, decamelizeKeys } = require('humps');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
 passport.use(new GitHubStrategy({
   clientID: process.env.CLIENT_ID,

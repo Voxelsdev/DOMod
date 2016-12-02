@@ -11,9 +11,23 @@ class App extends Component {
     super();
     this.state = {
       loggedIn: false,
+      html: '<body><!-- Add html here --></body>',
+      js: '// Put body of JS function here'
     }
     this.handleLoginState = this.handleLoginState.bind(this);
     this.getCookie = this.getCookie.bind(this);
+    this.setHTML = this.setHTML.bind(this);
+    this.setJS = this.setJS.bind(this);
+  }
+
+  setHTML(html) {
+    localStorage.html = html;
+    this.setState({ html });
+  }
+
+  setJS(js) {
+    localStorage.javascript = js;
+    this.setState({ js });
   }
 
   getCookie(name) {
@@ -60,6 +74,10 @@ class App extends Component {
                 handleLoginState={this.handleLoginState}/>
           <Router
                 loggedIn={this.state.loggedIn}
+                html={this.state.html}
+                js={this.state.js}
+                setHTML={this.setHTML}
+                setJS={this.setJS}
                 handleLoginState={this.handleLoginState}/>
         </div>
       </BrowserRouter>

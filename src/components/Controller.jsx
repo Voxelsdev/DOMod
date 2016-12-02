@@ -13,10 +13,6 @@ function fixUpParsedHTML(obj) {
       if (!obj.children[i].hasOwnProperty('tagName')) {
         obj.children.splice(i, 1);
       } else {
-        // if (obj.children.attributes.hasOwnProperty('id')) {
-        //   obj.children.attributes.id = `__${obj.children.attributes.id}`;
-        // }
-        // if (obj.children.attributes.has)
         fixUpParsedHTML(obj.children[i]);
       }
     }
@@ -39,6 +35,8 @@ class Controller extends Component {
   }
 
   render() {
+    const fixedHTML = `<div id='__body'>
+      ${this.props.html.substring(6, this.props.html.length - 7)}</div>`;
 
     return (
       <div id={Styles.controlPanel}>
@@ -63,7 +61,7 @@ class Controller extends Component {
         </div>
         <div id={Styles.userHTML} ref={(div) => {this.textInput = div;}}>
           {this.props.testMode ?
-            this.state.htmlToReactParser.parse(this.props.html):''}
+            this.state.htmlToReactParser.parse(fixedHTML):''}
         </div>
       </div>
     );

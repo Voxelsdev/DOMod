@@ -6,8 +6,11 @@ import escodegen from 'escodegen';
 import esprima from 'esprima';
 import estraverse from 'estraverse';
 
+import Styles from './css/main';
+
 import DOMviewer from './DOMviewer';
 import Editor from './Editor';
+import Rnd from 'react-rnd';
 
 const evalJSArr = function(js) {
   const jsArr = [];
@@ -43,8 +46,8 @@ const evalJSArr = function(js) {
         numOfLines = (currJS.match(/\n/g) || []).length + 1;
       }
       if (node.type === 'Identifier') {
-        if (node.name === 'document') {
-          node.name = 'bodyFromUser';
+        if (node.name === 'document' && parent.property === 'getElementById') {
+          node.name = '__body';
         }
         if (parent.type === 'VariableDeclarator' ||
             parent.type === 'AssignmentExpression') {
@@ -59,6 +62,14 @@ const evalJSArr = function(js) {
       if (node.type === 'MemberExpression' &&
           (modifiers.hasOwnProperty(node.property.name) ||
           getters.hasOwnProperty(node.property.name))) {
+        const domManipulator = parent.callee.property.name;
+        if (getters.hasOwnProperty(domManipulator)) {
+          const domElement = parent.callee.object.name;
+          const argument = parent.arguments.length > 0 ?
+                                        `(\'${parent.arguments[0].value}\')`:'';
+          jsArr[jsArr.length - 1].domPart =
+                        `${domElement}.${domManipulator}${argument}`;
+        }
         jsArr[jsArr.length - 1].asscWithDOM = true;
         jsArr[jsArr.length - 1].endLine = lineNum + numOfLines - 1;
         for (let i = lineNum; i <= lineNum; i++) {
@@ -75,45 +86,47 @@ const evalJSArr = function(js) {
     }
   });
   return { jsArr, domArr };
-}
-
-const runCodeSoFar = function(jsArr, endIndex) {
-  for (let i = 0; i < endIndex; i++) {
-    codeToRun += jsArr[i].nonThreatJS;
-  }
-  eval(codeToRun);
-}
+};
 
 class Main extends Component {
   constructor() {
     super();
     this.state = {
       domArr: [],
+      editorWidth: 350,
+      highlightNode: '',
       html: '<body><!-- Add html here --></body>',
       js: '// Put body of JS function here',
       jsArr: [],
       jsArrEndIndex: -1,
       jsArrStartIndex: -1,
-      jsonFromHtml: null,
-      nonThreatJS: null,
+      jsonFromHTML: null,
       testMode: false,
       tree: d3.layout.tree().size([500, 500])
     }
-    this.setHTML = this.setHTML.bind(this);
-    this.setJS = this.setJS.bind(this);
+    this.setEditorWidth = this.setEditorWidth.bind(this);
+    this.setHighlightNode = this.setHighlightNode.bind(this);
     this.setJSArrIndex = this.setJSArrIndex.bind(this);
     this.setJSONFromHTML = this.setJSONFromHTML.bind(this);
     this.setTestMode = this.setTestMode.bind(this);
   }
 
-  setHTML(html) {
-    localStorage.html = html;
-    this.setState({ html });
+  setEditorWidth(direction, styleSize) {
+    this.setState({ editorWidth: styleSize.width });
   }
 
-  setJS(js) {
-    localStorage.javascript = js;
-    this.setState({ js });
+  setHighlightNode(endIndex) {
+    let toHighlight = '';
+    let codeToRun = 'const __body = document.getElementById(\'__body\');';
+    let i = 0;
+    for (i; i <= endIndex; i++) {
+      codeToRun += this.state.jsArr[i].nonThreatJS;
+    }
+    if (endIndex > -1) {
+      codeToRun += `toHighlight = ${this.state.jsArr[i - 1].domPart};`;
+    }
+    eval(codeToRun);
+    this.setState({ highlightNode: toHighlight });
   }
 
   setJSArrIndex(event) {
@@ -125,18 +138,18 @@ class Main extends Component {
         break;
       }
     }
-    runCodeSoFar(this.state.jsArr, endIndex);
+    this.setHighlightNode(endIndex);
     this.setState({ jsArrStartIndex: this.state.jsArrEndIndex + 1,
                     jsArrEndIndex: endIndex });
   }
 
-  setJSONFromHTML(jsonFromHtml) {
-    this.setState({ jsonFromHtml });
+  setJSONFromHTML(jsonFromHTML) {
+    this.setState({ jsonFromHTML });
   }
 
   setTestMode(event) {
     if (!this.state.testMode) {
-      const { domArr, jsArr } = evalJSArr(this.state.js);
+      const { domArr, jsArr } = evalJSArr(this.props.js);
       this.setState({ domArr, jsArr });
     }
     this.setState({ testMode: !this.state.testMode });
@@ -145,25 +158,44 @@ class Main extends Component {
   render() {
 
     return (
-      <div className="row">
-        <div className="eight columns">
-          <DOMviewer tree={this.state.tree}
-                     jsonFromHtml={this.state.jsonFromHtml} />
-        </div>
-        <div className="four columns">
-          <Editor domArr={this.state.domArr}
-                  html={this.state.html}
-                  js={this.state.js}
-                  jsArr={this.state.jsArr}
-                  jsArrEndIndex={this.state.jsArrEndIndex}
-                  jsArrStartIndex={this.state.jsArrStartIndex}
-                  testMode={this.state.testMode}
-                  setHTML={this.setHTML}
-                  setJS={this.setJS}
-                  setJSArrIndex={this.setJSArrIndex}
-                  setJSONFromHTML={this.setJSONFromHTML}
-                  setTestMode={this.setTestMode} />
-        </div>
+      <div id="main">
+        <Rnd
+             bounds={'parent'}
+             initial={{ x: 0, y: 0, width: 350, height: 1000 }}
+             isResizable = {{
+               top:false,
+               right:true,
+               bottom:false,
+               left:false,
+               topRight:false,
+               bottomRight:false,
+               bottomLeft:false,
+               topLeft:false
+             }}
+             minWidth={300}
+             minHeight={160}
+             maxWidth={650}
+             maxHeight={300}
+             moveAxis='none'
+             onResize={this.setEditorWidth}>
+            <Editor
+                    domArr={this.state.domArr}
+                    html={this.props.html}
+                    js={this.props.js}
+                    jsArr={this.state.jsArr}
+                    jsArrEndIndex={this.state.jsArrEndIndex}
+                    jsArrStartIndex={this.state.jsArrStartIndex}
+                    testMode={this.state.testMode}
+                    setHTML={this.props.setHTML}
+                    setJS={this.props.setJS}
+                    setJSArrIndex={this.setJSArrIndex}
+                    setJSONFromHTML={this.setJSONFromHTML}
+                    setTestMode={this.setTestMode} />
+          </Rnd>
+        <DOMviewer editorWidth={this.state.editorWidth}
+                   highlightNode={this.state.highlightNode}
+                   jsonFromHTML={this.state.jsonFromHTML}
+                   tree={this.state.tree}/>
       </div>
     )
   }

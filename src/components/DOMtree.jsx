@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 
 import d3 from 'd3';
+import parser from 'himalaya';
 
 import Node from './Node.jsx';
 import Link from './Link.jsx';
 
+import Styles from './css/domtree';
+
 class DOMtree extends Component {
   makeNode(node, key) {
-    const currentUrl = window.location.href.toString();
-    const currentPage = currentUrl.substring(currentUrl.lastIndexOf('/'));
 
-    return <Node tagName={node.tagName}
+    return <Node color={node.color}
+                 key={key}
+                 tagName={node.tagName}
                  tagClass={node.attributes.className}
                  tagId={node.attributes.id}
                  x={node.x}
-                 y={node.y}
-                 key={key}
-                 selectors={this.props.selectors}
-                 currentPage={currentPage}/>
+                 y={node.y} />
   }
 
   makeLink(link, key) {
@@ -26,19 +26,32 @@ class DOMtree extends Component {
   }
 
   render() {
-    if (this.props.jsonFromHtml) {
-      const nodes = this.props.tree.nodes(this.props.jsonFromHtml[0]);
+
+    if (this.props.jsonFromHTML) {
+      const nodes = this.props.tree.nodes(this.props.jsonFromHTML[0]);
       const links = this.props.tree.links(nodes);
 
+      if (this.props.highlightNode) {
+        if (!Array.isArray(this.props.highlightNode)) {
+          for (const node of nodes) {
+            const highlightNodeJSON =
+                    parser.parse(this.props.highlightNode.outerHTML)[0];
+            node.color = (node.tagName === highlightNodeJSON.tagName.toLowerCase() &&
+                node.attributes.id === highlightNodeJSON.attributes.id &&
+                node.attributes.class ===
+                      highlightNodeJSON.attributes.className);
+          }
+        }
+      }
+
       nodes.forEach((d) => {
+        d.x = (d.x - 250) + this.props.svgWidth / 2;
         d.y = d.depth * 100 + 25; });
 
       return (
-        <g className="domtree">
+        <g className={Styles.domtree}>
           {links.map((link, key) => this.makeLink(link, key))}
           {nodes.map((node, key) => this.makeNode(node, key))}
-          })
-        }
         </g>
       )
     }

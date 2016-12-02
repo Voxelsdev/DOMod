@@ -26,8 +26,7 @@ class Node extends Component {
         <text textAnchor="middle"
               x={this.props.x}
               y={this.props.y}
-              className={ matchesSelector && this.props.currentPage ===
-                          '/js-player'? Styles.highlightedTag:Styles.tag }>
+              className={ this.props.color ? Styles.highlightedTag:Styles.tag }>
           {this.props.tagName}
         </text>
       </g>

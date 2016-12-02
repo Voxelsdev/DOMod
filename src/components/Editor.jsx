@@ -58,7 +58,7 @@ class Editor extends PureComponent {
 
   render() {
 
-    return <div className={styles.editorContainer}>
+    return <div id={styles.editorContainer}>
         <Controller html={this.props.html}
                     testMode={this.props.testMode}
                     setJSArrIndex={this.props.setJSArrIndex}
