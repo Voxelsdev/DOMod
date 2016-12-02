@@ -19,6 +19,7 @@ class Profile extends Component {
       axios.get('/users/snippets')
       .then((response) => {
         const loadedSnippets = response.data;
+        console.log(loadedSnippets);
         this.setState({ snippets: loadedSnippets });
       })
       .catch((err) => {
@@ -37,15 +38,10 @@ class Profile extends Component {
                 <h3>Looks like you have no Snippets 😦</h3>
               </div>
             </div>
-            <div className={classnames('row', styles.midRow)}>
-              <div className={classnames('six', 'columns', 'offset-by-three')}>
-                <h3>. . .</h3>
-              </div>
-            </div>
             <div className={classnames('row', styles.bottomRow)}>
               <div className={classnames('six', 'columns', 'offset-by-three')}>
                 <div className="row">
-                  <h4>Make one?</h4>
+                  <h4>...Make one?</h4>
                 </div>
                 <div className="row" id={styles.toHomeContainer}>
                   <Link to="/"
@@ -53,11 +49,16 @@ class Profile extends Component {
                 </div>
               </div>
             </div>
+            <div className="row">
+              <div className={classnames('four', 'columns', 'offset-by-four')}>
+                <p id={styles.promise}>I promise I'll save it</p>
+              </div>
+            </div>
           </div>
         }
 
         {this.state.snippets.length > 0 &&
-          <div></div>
+          <div>Hey you have a snippet!</div>
         }
       </div>
     )
