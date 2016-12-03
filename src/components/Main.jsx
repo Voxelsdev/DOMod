@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Match, Miss } from 'react-router';
 
-import classnames from 'classnames';
 import escodegen from 'escodegen';
 import esprima from 'esprima';
 import estraverse from 'estraverse';
@@ -129,11 +128,13 @@ class Main extends Component {
 
   setJSArrIndex(event) {
     let endIndex = -1;
-    for (let i = this.state.jsArrEndIndex + 1;
-             i < this.state.jsArr.length; i++) {
-      if (this.state.jsArr[i].asscWithDOM) {
-        endIndex = this.state.jsArr[i].endLine;
-        break;
+    if (event.target.id === 'getNextInJSArr') {
+      for (let i = this.state.jsArrEndIndex + 1;
+               i < this.state.jsArr.length; i++) {
+        if (this.state.jsArr[i].asscWithDOM) {
+          endIndex = this.state.jsArr[i].endLine;
+          break;
+        }
       }
     }
     this.setHighlightNode(endIndex);
@@ -154,7 +155,6 @@ class Main extends Component {
   }
 
   render() {
-    console.log(window.innerHeight);
 
     return (
       <div id="main">
