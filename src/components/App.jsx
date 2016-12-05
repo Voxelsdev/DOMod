@@ -11,13 +11,15 @@ class App extends Component {
     super();
     this.state = {
       loggedIn: false,
-      html: '<body><!-- Add html here --></body>',
-      js: '// Put body of JS function here'
+      snippetId: null,
+      html: localStorage.html || '<body><!-- Add html here --></body>',
+      js: localStorage.js || '// Put body of JS function here',
     }
     this.handleLoginState = this.handleLoginState.bind(this);
     this.getCookie = this.getCookie.bind(this);
     this.setHTML = this.setHTML.bind(this);
     this.setJS = this.setJS.bind(this);
+    this.handleSnippetState = this.handleSnippetState.bind(this);
   }
 
   setHTML(html) {
@@ -59,6 +61,10 @@ class App extends Component {
     }
   }
 
+  handleSnippetState(newId) {
+    this.setState({ snippetId: newId });
+  }
+
   componentDidMount() {
     this.handleLoginState(false);
   }
@@ -68,14 +74,20 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Header
+                html={this.state.html}
+                javascript={this.state.js}
                 loggedIn={this.state.loggedIn}
+                snippetId={this.state.snippetId}
+                handleSnippetState={this.handleSnippetState}
                 handleLoginState={this.handleLoginState}/>
           <Router
                 loggedIn={this.state.loggedIn}
                 html={this.state.html}
                 js={this.state.js}
+                snippetId={this.state.snippetId}
                 setHTML={this.setHTML}
                 setJS={this.setJS}
+                handleSnippetState={this.handleSnippetState}
                 handleLoginState={this.handleLoginState}/>
         </div>
       </BrowserRouter>

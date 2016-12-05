@@ -159,7 +159,7 @@ class Main extends Component {
     return (
       <div id="main">
         <Rnd bounds={'parent'}
-             initial={{ x: 0, y: 0, width: 350, height: 1000 }}
+             initial={{ x: 0, y: 0, width: 350, height: window.innerHeight - 50 }}
              isResizable = {{
                top:false,
                right:true,

@@ -12,6 +12,7 @@ const config = require('./webpack.config.dev');
 const compiler = webpack(config);
 
 app.use(cookieParser());
+app.use(bodyParser());
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();

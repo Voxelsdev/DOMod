@@ -73,7 +73,7 @@ class Editor extends PureComponent {
           tabSize = {2}
           theme="tomorrow_night_eighties"
           width="100%"
-          height={window.innerHeight / 2 - 50}
+          height={(window.innerHeight / 2 - 50).toString()}
           value={this.props.html}
         />
         <p className={Styles.editorHeader}>JS</p>
@@ -86,7 +86,7 @@ class Editor extends PureComponent {
           theme="tomorrow_night_eighties"
           width="100%"
           value={this.props.js}
-          height={window.innerHeight / 2 - 50}
+          height={(window.innerHeight / 2 - 50).toString()}
         />
     </div>
   }

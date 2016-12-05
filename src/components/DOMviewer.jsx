@@ -9,7 +9,8 @@ class DOMviewer extends Component {
 
     return (
       <svg id={Styles.domviewer}
-           style={{width: screen.width - this.props.editorWidth}}>
+           style={{width: screen.width - this.props.editorWidth,
+                  height: window.innerHeight - 50}}>
         <DOMtree highlightNode={this.props.highlightNode}
                  tree={this.props.tree}
                  jsonFromHTML={this.props.jsonFromHTML}

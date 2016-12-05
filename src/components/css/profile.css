@@ -6,12 +6,12 @@ body {
   height: 100%;
 }
 
-.topRow, .midRow, .bottomRow {
+.topRow, .bottomRow, #promise {
   text-align: center;
 }
 
-.bottomRow {
-  margin-bottom: 0;
+.topRow {
+  margin-top: 30px;
 }
 
 .toHome {
@@ -34,4 +34,11 @@ body {
   width: 200px;
   border-radius: 4px;
   border: 2px solid #aaa;
+}
+
+#promise {
+  font-size: 10px;
+  font-weight: lighter;
+  margin-bottom: 0;
+  margin-top: 30px;
 }
