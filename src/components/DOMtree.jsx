@@ -76,11 +76,11 @@ class DOMtree extends Component {
         node.color = false;
       }
 
-      if (this.props.highlightNode) {
-        if (!this.props.highlightNode[0]) {
-          highlightFromSingleElement(this.props.highlightNode, nodes);
+      if (this.props.toHighlight) {
+        if (!this.props.toHighlight[0]) {
+          highlightFromSingleElement(this.props.toHighlight, nodes);
         } else {
-          highlightFromArrayOfElements(this.props.highlightNode, nodes);
+          highlightFromArrayOfElements(this.props.toHighlight, nodes);
         }
       }
 

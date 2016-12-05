@@ -91,7 +91,7 @@ class Main extends Component {
     this.state = {
       domArr: [],
       editorWidth: 350,
-      highlightNode: '',
+      toHighlight: '',
       html: '<body><!-- Add html here --></body>',
       js: '// Put body of JS function here',
       jsArr: [],
@@ -123,7 +123,7 @@ class Main extends Component {
       codeToRun += `toHighlight = ${this.state.jsArr[i - 1].domPart};`;
     }
     eval(codeToRun);
-    this.setState({ highlightNode: toHighlight });
+    this.setState({ toHighlight });
   }
 
   setJSArrIndex(event) {
@@ -189,7 +189,7 @@ class Main extends Component {
                     setTestMode={this.setTestMode} />
           </Rnd>
         <DOMviewer editorWidth={this.state.editorWidth}
-                   highlightNode={this.state.highlightNode}
+                   toHighlight={this.state.toHighlight}
                    jsonFromHTML={this.state.jsonFromHTML}
                    tree={this.state.tree}/>
       </div>
