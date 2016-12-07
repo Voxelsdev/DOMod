@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
 import classnames from 'classnames';
-import styles from './css/profile';
+import Styles from './css/profile';
 
 class Profile extends Component {
   constructor() {
@@ -33,25 +33,25 @@ class Profile extends Component {
       <div>
         {this.state.snippets.length < 1 &&
           <div>
-            <div className={classnames('row', styles.topRow)}>
+            <div className={classnames('row', Styles.topRow)}>
               <div className={classnames('six', 'columns', 'offset-by-three')}>
                 <h3>Looks like you have no Snippets 😦</h3>
               </div>
             </div>
-            <div className={classnames('row', styles.bottomRow)}>
+            <div className={classnames('row', Styles.bottomRow)}>
               <div className={classnames('six', 'columns', 'offset-by-three')}>
                 <div className="row">
                   <h4>...Make one?</h4>
                 </div>
-                <div className="row" id={styles.toHomeContainer}>
+                <div className="row" id={Styles.toHomeContainer}>
                   <Link to="/"
-                        className={styles.toHome}>Go to the editor!</Link>
+                        className={Styles.toHome}>Go to the editor!</Link>
                 </div>
               </div>
             </div>
             <div className="row">
               <div className={classnames('four', 'columns', 'offset-by-four')}>
-                <p id={styles.promise}>I promise I'll save it</p>
+                <p id={Styles.promise}>I promise I'll save it</p>
               </div>
             </div>
           </div>

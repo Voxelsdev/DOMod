@@ -11,98 +11,48 @@ import DOMviewer from './DOMviewer';
 import Editor from './Editor';
 import Rnd from 'react-rnd';
 
-const evalJSArr = function(js) {
-  const jsArr = [];
-  const domArr = [];
-  const getters = {
-    getElementsByTagName: true,
-    getElementsByClassName: true,
-    getElementById: true,
-    querySelector: true,
-    querySelectorAll: true,
-    children: true,
-    nextElementSibling: true,
-    previousElementSibling: true,
-    parentElement: true
-  }
-  const modifiers = {
-    appendChild: true,
-    removeChild: true,
-    createElement: true
-  };
-  let currJS = '';
-  let lineNum = 0;
-  let numOfLines = 0;
-  const identifiers = {};
-  estraverse.traverse(esprima.parse(js), {
-    enter(node, parent) {
-      if (parent && parent.type === "Program") {
-        currJS = escodegen.generate(node);
-        jsArr.push({ asscWithDOM: false });
-        numOfLines = (currJS.match(/\n/g) || []).length + 1;
-      }
-      if (node.type === 'Identifier') {
-        if (node.name === 'document' && parent.property === 'getElementById') {
-          node.name = '__body';
-        }
-        if (parent.type === 'VariableDeclarator' ||
-            parent.type === 'AssignmentExpression') {
-          identifiers[node.name] = true;
-          node.name = `__${node.name}`;
-        } else {
-          if (identifiers.hasOwnProperty(node.name)) {
-            node.name = `__${node.name}`;
-          }
-        }
-      }
-      if (node.type === 'MemberExpression' &&
-          (modifiers.hasOwnProperty(node.property.name) ||
-          getters.hasOwnProperty(node.property.name))) {
-        const domManipulator = node.property.name;
-        if (getters.hasOwnProperty(domManipulator)) {
-          const domElement = node.object.name === 'document' ?
-                                  'document':`__${node.object.name}`;
-          const argument = parent.arguments ?
-                                        `(\'${parent.arguments[0].value}\')`:'';
-          jsArr[jsArr.length - 1].domPart =
-                        `${domElement}.${domManipulator}${argument}`;
-        }
-        jsArr[jsArr.length - 1].asscWithDOM = true;
-        jsArr[jsArr.length - 1].endLine = lineNum + numOfLines - 1;
-        for (let i = lineNum; i <= lineNum; i++) {
-          domArr.push(i);
-        }
-      }
-    },
-    leave(node, parent) {
-      if (parent && parent.type === "Program") {
-        currJS = escodegen.generate(node);
-        jsArr[jsArr.length - 1].nonThreatJS = currJS;
-        lineNum += numOfLines;
-      }
-    }
-  });
-  return { jsArr, domArr };
+const isDOMManipulator = function(selectors, modifiers, node) {
+  return node.type === 'MemberExpression' &&
+        (modifiers.has(node.property.name) ||
+         selectors.has(node.property.name));
 };
+
+// getElementById only works with the document obj, so it is not replaced
+const replaceDocObj = function(selectors, modifiers, node, parent) {
+  if (node.name === 'document' &&
+      parent.property.name !== 'getElementById' &&
+      (selectors.has(parent.property.name) ||
+       modifiers.has(parent.property.name))) {
+    node.name = '__body';
+  }
+}
+
+const replaceUserVar = function(userDefVars, node, parent) {
+  if (parent.type === 'VariableDeclarator' ||
+      parent.type === 'AssignmentExpression') {
+    userDefVars.add(node.name);
+    node.name = `__${node.name}`;
+  } else if (userDefVars.has(node.name)) {
+    node.name = `__${node.name}`;
+  }
+}
 
 class Main extends Component {
   constructor() {
     super();
     this.state = {
-      domArr: [],
       editorWidth: 350,
-      toHighlight: '',
-      html: '<body><!-- Add html here --></body>',
-      js: '// Put body of JS function here',
       jsArr: [],
       jsArrEndIndex: -1,
       jsArrStartIndex: -1,
       jsonFromHTML: null,
       testMode: false,
+      toHighlight: '',
       tree: d3.layout.tree().size([500, 500])
     }
     this.setEditorWidth = this.setEditorWidth.bind(this);
     this.setHighlightNode = this.setHighlightNode.bind(this);
+    this.setJSArr = this.setJSArr.bind(this);
     this.setJSArrIndex = this.setJSArrIndex.bind(this);
     this.setJSONFromHTML = this.setJSONFromHTML.bind(this);
     this.setTestMode = this.setTestMode.bind(this);
@@ -126,17 +76,56 @@ class Main extends Component {
     this.setState({ toHighlight });
   }
 
+  setJSArr() {
+    const selectors = new Set(['getElementsByTagName', 'getElementsByClassName',
+                              'getElementById', 'querySelector',
+                              'querySelectorAll', 'children', 'parentElement',
+                              'nextElementSibling', 'previousElementSibling']);
+    const modifiers = new Set(['appendChild', 'removeChild', 'createElement']);
+    const userVars = new Set();
+    const jsArr = [];
+    let lineNum = 0;
+    estraverse.traverse(esprima.parse(this.props.js), {
+      enter(node, parent) {
+        if (parent && parent.type === "Program") {
+          jsArr.push({});
+        }
+      },
+      leave(node, parent) {
+        const lastIndex = jsArr.length - 1;
+        if (node.type === 'Identifier') {
+          replaceDocObj(selectors, modifiers, node, parent);
+          replaceUserVar(userVars, node, parent);
+        }
+        if (isDOMManipulator(selectors, modifiers, node)) {
+          jsArr[lastIndex].domPart = escodegen.generate(parent);
+        }
+        if (parent && parent.type === "Program") {
+          const nonThreatJS = escodegen.generate(node);
+          const numOfLines = (nonThreatJS.match(/\n/g) || []).length;
+          jsArr[lastIndex].firstLine = lineNum;
+          jsArr[lastIndex].lastLine = lineNum + numOfLines;
+          jsArr[lastIndex].nonThreatJS = escodegen.generate(node);
+          lineNum += numOfLines + 1;
+        }
+      }
+    });
+    this.setState({ jsArr });
+  }
+
   setJSArrIndex(event) {
     let endIndex = -1;
     if (event.target.id === 'getNextInJSArr') {
       for (let i = this.state.jsArrEndIndex + 1;
                i < this.state.jsArr.length; i++) {
-        if (this.state.jsArr[i].asscWithDOM) {
-          endIndex = this.state.jsArr[i].endLine;
+        console.log(this.state.jsArr[i]);
+        if (this.state.jsArr[i].domPart) {
+          endIndex = this.state.jsArr[i].lastLine;
           break;
         }
       }
     }
+    console.log(endIndex);
     this.setHighlightNode(endIndex);
     this.setState({ jsArrStartIndex: this.state.jsArrEndIndex + 1,
                     jsArrEndIndex: endIndex });
@@ -148,8 +137,7 @@ class Main extends Component {
 
   setTestMode(event) {
     if (!this.state.testMode) {
-      const { domArr, jsArr } = evalJSArr(this.props.js);
-      this.setState({ domArr, jsArr });
+      this.setJSArr();
     }
     this.setState({ testMode: !this.state.testMode });
   }

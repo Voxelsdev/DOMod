@@ -4,7 +4,6 @@ import axios from 'axios';
 
 import Header from './Header';
 import Router from './Router';
-import styles from './css/app';
 
 class App extends Component {
   constructor() {

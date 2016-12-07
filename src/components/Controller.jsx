@@ -7,6 +7,8 @@ import Toggle from './Toggle';
 
 import Styles from './css/controller';
 
+// Himalaya parses the spaces in the user's HTML as children,
+// this fixes that
 function fixUpParsedHTML(obj) {
   if (obj.hasOwnProperty('children')) {
     for (let i = obj.children.length - 1; i >= 0; i--) {

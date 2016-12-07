@@ -20,8 +20,7 @@ class Node extends Component {
         <rect className={Styles.textrect}
               x={this.props.x - 10}
               y={this.props.y - 18}
-              width='20px'
-              height='24px'>
+              style={{width:'20px', height:'24px'}}>
         </rect>
         <text textAnchor="middle"
               x={this.props.x}

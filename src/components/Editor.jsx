@@ -17,6 +17,7 @@ import 'brace/theme/tomorrow_night_eighties';
 import Controller from './Controller';
 
 const highlightCurrentLines = function(linesOfJS, startIndex, endIndex, jsArr) {
+  console.log('highlighting current lines');
   if (endIndex > -1) {
     for (let i = 0; i < jsArr.length; i++) {
       if (i >= startIndex && i <= endIndex) {
@@ -24,34 +25,28 @@ const highlightCurrentLines = function(linesOfJS, startIndex, endIndex, jsArr) {
       }
     }
   }
-}
+};
 
-const highlightDOMLines = function(testMode, linesOfJS, domArr) {
-  for (let i = 0; i < domArr.length; i++) {
-    if (testMode) {
-      linesOfJS[domArr[i]].style.backgroundColor = '#3b444c';
+const highlightDOMLines = function(testMode, linesOfJS, jsArr) {
+  for (let i = 0; i < jsArr.length; i++) {
+    if (jsArr[i].hasOwnProperty('domPart')) {
+      for (let j = jsArr[i].firstLine; j <= jsArr[i].lastLine; j++) {
+        linesOfJS[j].style.backgroundColor = '#3b444c';
+      }
     }
   }
-}
+};
 
 class Editor extends PureComponent {
-  constructor() {
-    super();
-    this.parseHtml = this.parseHtml.bind(this);
-  }
-
-  parseHtml() {
-    this.props.setJsonFromHtml(parser.parse(this.props.html));
-  }
-
   componentDidUpdate() {
     const linesOfJS = this.refs.jsEditor
-                                .refs.editor.getElementsByClassName('ace_line');
+                               .refs.editor.getElementsByClassName('ace_line');
+
     for (const line of linesOfJS) {
       line.style.backgroundColor = 'transparent';
     }
-    highlightDOMLines(this.props.testMode, linesOfJS, this.props.domArr);
     if (this.props.testMode) {
+      highlightDOMLines(this.props.testMode, linesOfJS, this.props.jsArr);
       highlightCurrentLines(linesOfJS, this.props.jsArrStartIndex,
                             this.props.jsArrEndIndex, this.props.jsArr);
     }
@@ -67,17 +62,18 @@ class Editor extends PureComponent {
                     setTestMode={this.props.setTestMode}/>
         <p className={Styles.editorHeader}>HTML</p>
         <AceEditor
+          height={(window.innerHeight / 2 - 70).toString()}
           mode="html"
           onChange={this.props.setHTML}
           readOnly={this.props.testMode}
           tabSize = {2}
           theme="tomorrow_night_eighties"
           width="100%"
-          height={(window.innerHeight / 2 - 50).toString()}
           value={this.props.html}
         />
         <p className={Styles.editorHeader}>JS</p>
         <AceEditor
+          height={(window.innerHeight / 2 - 70).toString()}
           mode="javascript"
           onChange={this.props.setJS}
           readOnly={this.props.testMode}
@@ -86,7 +82,6 @@ class Editor extends PureComponent {
           theme="tomorrow_night_eighties"
           width="100%"
           value={this.props.js}
-          height={(window.innerHeight / 2 - 50).toString()}
         />
     </div>
   }
