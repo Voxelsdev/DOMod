@@ -27,7 +27,7 @@ class App extends Component {
   }
 
   setJS(js) {
-    localStorage.javascript = js;
+    localStorage.js = js;
     this.setState({ js });
   }
 
