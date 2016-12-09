@@ -17,7 +17,6 @@ import 'brace/theme/tomorrow_night_eighties';
 import Controller from './Controller';
 
 const highlightCurrentLines = function(linesOfJS, startIndex, endIndex, jsArr) {
-  console.log('highlighting current lines');
   if (endIndex > -1) {
     for (let i = 0; i < jsArr.length; i++) {
       if (i >= startIndex && i <= endIndex) {
@@ -29,7 +28,8 @@ const highlightCurrentLines = function(linesOfJS, startIndex, endIndex, jsArr) {
 
 const highlightDOMLines = function(testMode, linesOfJS, jsArr) {
   for (let i = 0; i < jsArr.length; i++) {
-    if (jsArr[i].hasOwnProperty('domPart')) {
+    if (jsArr[i].hasOwnProperty('selector') ||
+        jsArr[i].hasOwnProperty('modifier')) {
       for (let j = jsArr[i].firstLine; j <= jsArr[i].lastLine; j++) {
         linesOfJS[j].style.backgroundColor = '#3b444c';
       }
@@ -53,13 +53,19 @@ class Editor extends PureComponent {
   }
 
   render() {
+    console.log(this.props.html);
 
     return <div id={Styles.editorContainer}>
         <Controller html={this.props.html}
-                    testMode={this.props.testMode}
+                    jsArr={this.props.jsArr}
+                    jsArrEndIndex={this.props.jsArrEndIndex}
+                    jsArrStartIndex={this.props.jsArrStartIndex}
+                    moddedHTML={this.props.moddedHTML}
+                    runNextCode={this.props.runNextCode}
                     setJSArrIndex={this.props.setJSArrIndex}
-                    setJSONFromHTML={this.props.setJSONFromHTML}
-                    setTestMode={this.props.setTestMode}/>
+                    setJSON={this.props.setJSON}
+                    setTestMode={this.props.setTestMode}
+                    testMode={this.props.testMode}/>
         <p className={Styles.editorHeader}>HTML</p>
         <AceEditor
           height={(window.innerHeight / 2 - 70).toString()}

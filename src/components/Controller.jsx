@@ -7,45 +7,30 @@ import Toggle from './Toggle';
 
 import Styles from './css/controller';
 
-// Himalaya parses the spaces in the user's HTML as children,
-// this fixes that
-function fixUpParsedHTML(obj) {
-  if (obj.hasOwnProperty('children')) {
-    for (let i = obj.children.length - 1; i >= 0; i--) {
-      if (!obj.children[i].hasOwnProperty('tagName')) {
-        obj.children.splice(i, 1);
-      } else {
-        fixUpParsedHTML(obj.children[i]);
-      }
-    }
-  }
-}
-
 class Controller extends Component {
   constructor() {
     super();
     this.state = {
       htmlToReactParser: new htmlToReact.Parser(React)
     }
-    this.parseHtml = this.parseHtml.bind(this);
-  }
-
-  parseHtml() {
-    const htmlTree = parser.parse(this.props.html);
-    fixUpParsedHTML(htmlTree[0]);
-    this.props.setJSONFromHTML(htmlTree);
   }
 
   render() {
-    const fixedHTML = `<div id='__body'>
-      ${this.props.html.substring(6, this.props.html.length - 7)}</div>`;
+//     let hiddenHTML = '';
+//     if (this.props.moddedHTML && this.props.endIndex === -1) {
+//       hiddenHTML = this.state.htmlToReactParser.parse(this.props.moddedHTML);
+//     } else if (this.props.testMode) {
+//       hiddenHTML = this.state.htmlToReactParser.parse(`<div id='__body'>
+// ${this.props.html.substring(6, this.props.html.lastIndexOf('</body>'))}</div>`);
+//     }
+//     console.log(hiddenHTML);
 
     return (
-      <div id={Styles.controlPanel}>
+      <div className="controlPanel" id={Styles.controlPanel}>
         <Toggle setTestMode={this.props.setTestMode}/>
         <button id={!this.props.testMode ?
                     Styles.parseHTMLButton: Styles.hiddenParseHTMLButton}
-                onClick={this.parseHtml}>
+                onClick={this.props.setJSON}>
           parse HTML
         </button>
         <div id={this.props.testMode ?
@@ -56,14 +41,13 @@ class Controller extends Component {
             &#8635;
           </button>
           <button className={Styles.controllerButton}
-                  onClick={this.props.setJSArrIndex}
+                  onClick={this.props.runNextCode}
                   id="getNextInJSArr">
             &#8674;
           </button>
         </div>
-        <div id={Styles.userHTML} ref={(div) => {this.textInput = div;}}>
-          {this.props.testMode ?
-            this.state.htmlToReactParser.parse(fixedHTML):''}
+        <div className="hiddenHTML" id={Styles.userHTML}>
+          {/* {hiddenHTML} */}
         </div>
       </div>
     );
