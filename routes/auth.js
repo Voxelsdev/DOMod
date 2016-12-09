@@ -24,7 +24,7 @@ passport.use(new GitHubStrategy({
 router.get('/github',
   passport.authenticate('github', {
     session: false,
-  }), (req, res) => { console.log('hello world'); });
+  }), (req, res) => { console.log('Something'); });
 
 router.get('/github/callback',
   passport.authenticate('github',

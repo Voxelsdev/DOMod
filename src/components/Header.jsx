@@ -80,16 +80,16 @@ class Header extends Component {
           </div>
         }
         {!this.props.loggedIn &&
-          <div className={classnames('four', 'columns', 'offset-by-four')}
-            id={Styles.titleContainer}>
-            <Link to="/" id={Styles.title}>&lt; DOMOD /&gt;</Link>
-          </div>
-        }
-        {!this.props.loggedIn &&
-          <div className="row">
-            <div className={classnames('one', 'columns', 'offset-by-three')}
-                  id={Styles.profileContainer}>
-              <Link to="/login" className={Styles.navbtn}>Login</Link>
+          <div>
+            <div className={classnames('four', 'columns', 'offset-by-four')}
+              id={Styles.titleContainer}>
+              <Link to="/" id={Styles.title}>&lt; DOMOD /&gt;</Link>
+            </div>
+            <div className="row">
+              <div className={classnames('one', 'columns', 'offset-by-three')}
+                    id={Styles.profileContainer}>
+                <Link to="/login" className={Styles.navbtn}>Login</Link>
+              </div>
             </div>
           </div>
         }
@@ -107,7 +107,7 @@ class Header extends Component {
                     className={Styles.navbtn}
                     onClick={this.handleLogout}>Logout</Link>
             </div>
-            {(this.props.loggedIn && window.location.href === ('https://domodded.herokuapp.com/')) &&
+            {(this.props.loggedIn && window.location.href === ('http://localhost:3000')) &&
               <div className={classnames('two', 'columns')}>
                 <button id={Styles.savebtn}
                         onClick={this.handleSave}>Save Snippet</button>
